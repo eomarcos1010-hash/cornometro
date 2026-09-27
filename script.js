@@ -14,12 +14,7 @@ let arquivosSelecionados = [];
 // ======================================================
 
 const MAX_IMAGENS = 3;
-
-// Mantemos as imagens menores para funcionar bem
-// tanto no celular quanto no computador.
 const MAX_LADO = 1280;
-
-// Qualidade JPEG
 const QUALIDADE_JPEG = 0.68;
 
 
@@ -29,9 +24,7 @@ const QUALIDADE_JPEG = 0.68;
 
 async function verificarServidor() {
 
-    if (!statusIA) {
-        return;
-    }
+    if (!statusIA) return;
 
     try {
 
@@ -44,7 +37,7 @@ async function verificarServidor() {
         );
 
         if (!resposta.ok) {
-            throw new Error("Servidor indisponível.");
+            throw new Error();
         }
 
         const dados = await resposta.json();
@@ -63,14 +56,7 @@ async function verificarServidor() {
 
     } catch (erro) {
 
-        console.warn(
-            "Status da IA:",
-            erro
-        );
-
-        // Não bloqueia o aplicativo.
-        // O endpoint de análise será responsável
-        // por verificar a API quando o usuário analisar.
+        console.warn("Status da IA:", erro);
 
         statusIA.textContent = "IA PRONTA";
         statusIA.classList.add("online");
@@ -81,16 +67,12 @@ verificarServidor();
 
 
 // ======================================================
-// ABRIR SELETOR DE IMAGENS
+// ABRIR SELETOR
 // ======================================================
 
 areaUpload.addEventListener(
     "click",
-    () => {
-
-        inputImagens.click();
-
-    }
+    () => inputImagens.click()
 );
 
 
@@ -108,7 +90,6 @@ inputImagens.addEventListener(
         adicionarImagens(imagens);
 
         inputImagens.value = "";
-
     }
 );
 
@@ -119,14 +100,11 @@ inputImagens.addEventListener(
 
 areaUpload.addEventListener(
     "dragover",
-    (evento) => {
+    evento => {
 
         evento.preventDefault();
 
-        areaUpload.classList.add(
-            "dragging"
-        );
-
+        areaUpload.classList.add("dragging");
     }
 );
 
@@ -135,23 +113,18 @@ areaUpload.addEventListener(
     "dragleave",
     () => {
 
-        areaUpload.classList.remove(
-            "dragging"
-        );
-
+        areaUpload.classList.remove("dragging");
     }
 );
 
 
 areaUpload.addEventListener(
     "drop",
-    (evento) => {
+    evento => {
 
         evento.preventDefault();
 
-        areaUpload.classList.remove(
-            "dragging"
-        );
+        areaUpload.classList.remove("dragging");
 
         const imagens =
             Array.from(
@@ -159,7 +132,6 @@ areaUpload.addEventListener(
             );
 
         adicionarImagens(imagens);
-
     }
 );
 
@@ -176,24 +148,16 @@ function adicionarImagens(imagens) {
             !imagem.type ||
             !imagem.type.startsWith("image/")
         ) {
-
             continue;
-
         }
-
 
         if (
             arquivosSelecionados.length >=
             MAX_IMAGENS
         ) {
-
             break;
-
         }
 
-
-        // Evita adicionar exatamente o mesmo arquivo
-        // várias vezes.
         const jaExiste =
             arquivosSelecionados.some(
                 arquivo =>
@@ -202,18 +166,10 @@ function adicionarImagens(imagens) {
                     arquivo.lastModified === imagem.lastModified
             );
 
+        if (jaExiste) continue;
 
-        if (jaExiste) {
-            continue;
-        }
-
-
-        arquivosSelecionados.push(
-            imagem
-        );
-
+        arquivosSelecionados.push(imagem);
     }
-
 
     atualizarPreview();
 }
@@ -226,7 +182,6 @@ function adicionarImagens(imagens) {
 function atualizarPreview() {
 
     preview.innerHTML = "";
-
 
     arquivosSelecionados.forEach(
         (arquivo, index) => {
@@ -242,20 +197,13 @@ function atualizarPreview() {
                 document.createElement("img");
 
             const url =
-                URL.createObjectURL(
-                    arquivo
-                );
+                URL.createObjectURL(arquivo);
 
             img.src = url;
-
-            img.alt =
-                `Print ${index + 1}`;
-
+            img.alt = `Print ${index + 1}`;
 
             img.onload = () => {
-
                 URL.revokeObjectURL(url);
-
             };
 
 
@@ -273,60 +221,39 @@ function atualizarPreview() {
                 document.createElement("button");
 
             remover.type = "button";
-
-            remover.textContent =
-                "×";
-
-            remover.className =
-                "remover-imagem";
-
-            remover.title =
-                "Remover imagem";
+            remover.textContent = "×";
+            remover.className = "remover-imagem";
+            remover.title = "Remover imagem";
 
 
             remover.addEventListener(
                 "click",
-                (evento) => {
+                evento => {
 
                     evento.preventDefault();
-
                     evento.stopPropagation();
-
 
                     arquivosSelecionados.splice(
                         index,
                         1
                     );
 
-
                     atualizarPreview();
-
                 }
             );
 
 
             container.appendChild(img);
+            container.appendChild(numero);
+            container.appendChild(remover);
 
-            container.appendChild(
-                numero
-            );
-
-            container.appendChild(
-                remover
-            );
-
-
-            preview.appendChild(
-                container
-            );
-
+            preview.appendChild(container);
         }
     );
 
 
     contador.textContent =
         `${arquivosSelecionados.length}/${MAX_IMAGENS}`;
-
 
     btnAnalisar.disabled =
         arquivosSelecionados.length === 0;
@@ -345,23 +272,16 @@ function reduzirImagem(arquivo) {
             const imagem =
                 new Image();
 
-
             const url =
-                URL.createObjectURL(
-                    arquivo
-                );
+                URL.createObjectURL(arquivo);
 
 
             imagem.onload = () => {
 
-                URL.revokeObjectURL(
-                    url
-                );
-
+                URL.revokeObjectURL(url);
 
                 let largura =
                     imagem.naturalWidth;
-
 
                 let altura =
                     imagem.naturalHeight;
@@ -382,18 +302,15 @@ function reduzirImagem(arquivo) {
                         MAX_LADO /
                         maiorLado;
 
-
                     largura =
                         Math.round(
                             largura * escala
                         );
 
-
                     altura =
                         Math.round(
                             altura * escala
                         );
-
                 }
 
 
@@ -402,18 +319,12 @@ function reduzirImagem(arquivo) {
                         "canvas"
                     );
 
-
-                canvas.width =
-                    largura;
-
-                canvas.height =
-                    altura;
+                canvas.width = largura;
+                canvas.height = altura;
 
 
                 const contexto =
-                    canvas.getContext(
-                        "2d"
-                    );
+                    canvas.getContext("2d");
 
 
                 if (!contexto) {
@@ -438,7 +349,7 @@ function reduzirImagem(arquivo) {
 
 
                 canvas.toBlob(
-                    (blob) => {
+                    blob => {
 
                         if (!blob) {
 
@@ -459,8 +370,7 @@ function reduzirImagem(arquivo) {
                                     .toString(36)
                                     .slice(2, 8)}.jpg`,
                                 {
-                                    type:
-                                        "image/jpeg"
+                                    type: "image/jpeg"
                                 }
                             )
                         );
@@ -469,29 +379,22 @@ function reduzirImagem(arquivo) {
                     "image/jpeg",
                     QUALIDADE_JPEG
                 );
-
             };
 
 
             imagem.onerror = () => {
 
-                URL.revokeObjectURL(
-                    url
-                );
-
+                URL.revokeObjectURL(url);
 
                 reject(
                     new Error(
                         "Não foi possível carregar uma das imagens."
                     )
                 );
-
             };
 
 
-            imagem.src =
-                url;
-
+            imagem.src = url;
         }
     );
 }
@@ -512,12 +415,12 @@ function arquivoParaBase64(arquivo) {
 
             leitor.onload = () => {
 
-                const resultado =
+                const resultadoArquivo =
                     leitor.result;
 
 
                 if (
-                    typeof resultado !==
+                    typeof resultadoArquivo !==
                     "string"
                 ) {
 
@@ -531,20 +434,11 @@ function arquivoParaBase64(arquivo) {
                 }
 
 
-                // Remove:
-                // data:image/jpeg;base64,
-                // deixando somente o Base64.
-
                 const base64 =
-                    resultado.split(
-                        ","
-                    )[1];
+                    resultadoArquivo.split(",")[1];
 
 
-                resolve(
-                    base64
-                );
-
+                resolve(base64);
             };
 
 
@@ -555,21 +449,17 @@ function arquivoParaBase64(arquivo) {
                         "Erro ao ler uma das imagens."
                     )
                 );
-
             };
 
 
-            leitor.readAsDataURL(
-                arquivo
-            );
-
+            leitor.readAsDataURL(arquivo);
         }
     );
 }
 
 
 // ======================================================
-// ANALISAR CONVERSA
+// ANALISAR
 // ======================================================
 
 btnAnalisar.addEventListener(
@@ -579,19 +469,16 @@ btnAnalisar.addEventListener(
         if (
             arquivosSelecionados.length === 0
         ) {
-
             return;
-
         }
 
 
-        btnAnalisar.disabled =
-            true;
+        btnAnalisar.disabled = true;
 
 
         btnAnalisar.innerHTML = `
             <span class="spinner"></span>
-            Preparando imagens...
+            Preparando...
         `;
 
 
@@ -605,8 +492,7 @@ btnAnalisar.addEventListener(
                 </h3>
 
                 <p>
-                    Reduzindo as imagens para
-                    melhorar o desempenho da IA.
+                    Organizando as imagens para a análise.
                 </p>
 
             </div>
@@ -615,12 +501,11 @@ btnAnalisar.addEventListener(
 
         try {
 
-            const imagensProcessadas =
-                [];
+            const imagensProcessadas = [];
 
 
             // ==================================================
-            // PROCESSAR CADA IMAGEM
+            // PROCESSAR IMAGENS
             // ==================================================
 
             for (
@@ -641,15 +526,12 @@ btnAnalisar.addEventListener(
                     );
 
 
-                imagensProcessadas.push(
-                    imagem
-                );
-
+                imagensProcessadas.push(imagem);
             }
 
 
             // ==================================================
-            // CONVERTER PARA BASE64
+            // BASE64
             // ==================================================
 
             btnAnalisar.innerHTML = `
@@ -658,8 +540,7 @@ btnAnalisar.addEventListener(
             `;
 
 
-            const imagensBase64 =
-                [];
+            const imagensBase64 = [];
 
 
             for (
@@ -681,19 +562,17 @@ btnAnalisar.addEventListener(
 
                     data:
                         base64
-
                 });
-
             }
 
 
             // ==================================================
-            // TELA DE ANÁLISE
+            // ANALISANDO
             // ==================================================
 
             btnAnalisar.innerHTML = `
                 <span class="spinner"></span>
-                Analisando com IA...
+                Analisando conversa...
             `;
 
 
@@ -707,8 +586,9 @@ btnAnalisar.addEventListener(
                     </h3>
 
                     <p>
-                        O CORNÔMETRO está fazendo uma
-                        análise detalhada dos seus prints.
+                        O CORNÔMETRO está lendo os prints,
+                        reconstruindo o contexto e procurando
+                        pontos que merecem esclarecimento.
                     </p>
 
                     <div class="analise-detalhada">
@@ -716,24 +596,18 @@ btnAnalisar.addEventListener(
                         <span class="ponto"></span>
 
                         <span>
-                            A IA está lendo e comparando
-                            cuidadosamente o conteúdo visível
-                            das imagens.
+                            Comparando mensagens, horários,
+                            respostas e contexto.
                         </span>
 
                     </div>
-
-                    <small>
-                        Não feche esta janela enquanto
-                        a análise estiver em andamento.
-                    </small>
 
                 </div>
             `;
 
 
             // ==================================================
-            // ENVIAR PARA VERCEL
+            // API
             // ==================================================
 
             const resposta =
@@ -753,61 +627,45 @@ btnAnalisar.addEventListener(
                                 imagens:
                                     imagensBase64
                             })
-
                     }
                 );
 
 
             let json;
 
+
             try {
 
                 json =
                     await resposta.json();
 
-            } catch (erro) {
+            } catch {
 
                 throw new Error(
-                    "O servidor retornou uma resposta inválida."
+                    "Falha temporária na análise."
                 );
-
             }
 
-
-            // ==================================================
-            // ERRO DA API
-            // ==================================================
 
             if (!resposta.ok) {
 
                 throw new Error(
                     json.erro ||
-                    "Erro ao analisar as imagens."
+                    "Falha temporária na análise."
                 );
-
             }
 
-
-            // ==================================================
-            // VERIFICAR RESULTADO
-            // ==================================================
 
             if (
                 !json.analise ||
-                typeof json.analise !==
-                "string"
+                typeof json.analise !== "string"
             ) {
 
                 throw new Error(
-                    "A IA não retornou uma análise."
+                    "A IA não conseguiu concluir a análise."
                 );
-
             }
 
-
-            // ==================================================
-            // MOSTRAR RESULTADO
-            // ==================================================
 
             mostrarResultado(
                 json.analise
@@ -822,33 +680,8 @@ btnAnalisar.addEventListener(
             );
 
 
-            resultado.innerHTML = `
-                <div class="erro">
+            mostrarErroAnalise();
 
-                    <div class="erro-icon">
-                        !
-                    </div>
-
-                    <h3>
-                        Não foi possível analisar
-                    </h3>
-
-                    <p>
-                        ${escaparHTML(
-                            erro.message ||
-                            "Ocorreu um erro inesperado."
-                        )}
-                    </p>
-
-                    <button
-                        type="button"
-                        onclick="analisarNovamente()"
-                    >
-                        Tentar novamente
-                    </button>
-
-                </div>
-            `;
 
         } finally {
 
@@ -860,11 +693,50 @@ btnAnalisar.addEventListener(
                 <span>🔍</span>
                 Analisar conversa
             `;
-
         }
-
     }
 );
+
+
+// ======================================================
+// ERRO AMIGÁVEL
+// ======================================================
+
+function mostrarErroAnalise() {
+
+    resultado.innerHTML = `
+
+        <div class="erro analise-erro">
+
+            <div class="erro-icon">
+                ✦
+            </div>
+
+            <span class="erro-tag">
+                ANÁLISE TEMPORARIAMENTE INDISPONÍVEL
+            </span>
+
+            <h3>
+                A IA encontrou uma dificuldade
+            </h3>
+
+            <p>
+                Não foi possível concluir esta análise agora.
+                Tente novamente para que a IA possa analisar
+                seus prints corretamente.
+            </p>
+
+            <button
+                type="button"
+                class="btn-tentar"
+                onclick="analisarNovamente()"
+            >
+                ✦ Tentar novamente
+            </button>
+
+        </div>
+    `;
+}
 
 
 // ======================================================
@@ -874,29 +746,32 @@ btnAnalisar.addEventListener(
 function mostrarResultado(texto) {
 
     const dados =
-        processarResposta(
-            texto
-        );
+        processarResposta(texto);
 
 
     resultado.innerHTML = `
 
-        <div class="resultado-header">
+        <div class="resultado-topo">
 
-            <div>
+            <div class="resultado-titulo">
 
                 <span class="resultado-label">
-                    ANÁLISE CONCLUÍDA
+                    ✦ ANÁLISE CONCLUÍDA
                 </span>
 
                 <h2>
-                    Resultado da análise
+                    O que encontramos
                 </h2>
+
+                <p>
+                    Análise baseada no conteúdo visível
+                    dos prints enviados.
+                </p>
 
             </div>
 
 
-            <div class="indice">
+            <div class="indice-card">
 
                 <span>
                     ÍNDICE
@@ -904,9 +779,7 @@ function mostrarResultado(texto) {
 
                 <strong>
                     ${escaparHTML(
-                        String(
-                            dados.indice
-                        )
+                        String(dados.indice)
                     )}
                 </strong>
 
@@ -919,103 +792,80 @@ function mostrarResultado(texto) {
         </div>
 
 
-        <div class="card-resultado resumo">
+        ${criarCard(
+            "◉",
+            "Resumo",
+            dados.resumo,
+            "resumo"
+        )}
+
+
+        ${criarCardLista(
+            "◎",
+            "Fatos observados",
+            dados.fatos
+        )}
+
+
+        ${criarCard(
+            "◌",
+            "Contexto",
+            dados.contexto,
+            "contexto"
+        )}
+
+
+        ${criarCardLista(
+            "!",
+            "Pontos de atenção",
+            dados.pontosAtencao,
+            "atencao"
+        )}
+
+
+        ${criarCard(
+            "⌁",
+            "O que pode estar acontecendo",
+            dados.oQuePodeEstarAcontecendo,
+            "possibilidades"
+        )}
+
+
+        ${criarCardLista(
+            "?",
+            "Contradições",
+            dados.contradicoes,
+            "contradicoes"
+        )}
+
+
+        ${criarCard(
+            "◈",
+            "Padrões de comunicação",
+            dados.padroes,
+            "padroes"
+        )}
+
+
+        <div class="analise-card perguntas-card">
 
             <div class="titulo-card">
 
-                <span>
-                    ◉
-                </span>
-
-                Resumo
-
-            </div>
-
-            <p>
-                ${escaparHTML(
-                    dados.resumo ||
-                    "Não foi possível gerar um resumo."
-                )}
-            </p>
-
-        </div>
-
-
-        <div class="card-resultado">
-
-            <div class="titulo-card">
-
-                <span>
-                    ⚠
-                </span>
-
-                Sinais encontrados
-
-            </div>
-
-            <ul>
-
-                ${
-                    dados.sinais.length
+                <div class="icone-card">
                     ?
-                    dados.sinais
-                        .map(
-                            sinal => `
-                                <li>
-                                    ${escaparHTML(
-                                        sinal
-                                    )}
-                                </li>
-                            `
-                        )
-                        .join("")
-                    :
-                    `
-                        <li>
-                            Nenhum sinal específico
-                            identificado nas imagens.
-                        </li>
-                    `
-                }
+                </div>
 
-            </ul>
+                <div>
 
-        </div>
+                    <span>
+                        PERGUNTAS
+                    </span>
 
+                    <h3>
+                        Perguntas para esclarecer
+                    </h3>
 
-        <div class="card-resultado">
-
-            <div class="titulo-card">
-
-                <span>
-                    ◌
-                </span>
-
-                Contexto
-
-            </div>
-
-            <p>
-
-                ${escaparHTML(
-                    dados.contexto ||
-                    "Não foi possível determinar o contexto."
-                )}
-
-            </p>
-
-        </div>
-
-
-        <div class="card-resultado perguntas">
-
-            <div class="titulo-card">
-
-                <span>
-                    💬
-                </span>
-
-                Perguntas para esclarecer
+                </div>
 
             </div>
 
@@ -1024,28 +874,54 @@ function mostrarResultado(texto) {
 
                 ${
                     dados.perguntas.length
+
                     ?
+
                     dados.perguntas
                         .map(
-                            pergunta => `
-                                <button
-                                    type="button"
-                                    class="pergunta"
-                                    onclick="copiarTexto(this)"
+                            (pergunta, index) => `
+
+                                <div
+                                    class="pergunta-balao"
                                 >
-                                    ${escaparHTML(
-                                        pergunta
-                                    )}
-                                </button>
+
+                                    <div
+                                        class="numero-pergunta"
+                                    >
+                                        ${index + 1}
+                                    </div>
+
+                                    <div
+                                        class="pergunta-conteudo"
+                                    >
+
+                                        <p>
+                                            ${escaparHTML(
+                                                pergunta
+                                            )}
+                                        </p>
+
+                                        <button
+                                            type="button"
+                                            onclick="copiarTexto(this)"
+                                        >
+                                            Copiar pergunta
+                                        </button>
+
+                                    </div>
+
+                                </div>
                             `
                         )
                         .join("")
+
                     :
+
                     `
-                        <p>
+                        <div class="sem-dados">
                             Nenhuma pergunta específica
-                            foi gerada.
-                        </p>
+                            foi encontrada nos prints.
+                        </div>
                     `
                 }
 
@@ -1054,25 +930,57 @@ function mostrarResultado(texto) {
         </div>
 
 
-        <div class="card-resultado agir">
+        ${criarCard(
+            "↗",
+            "Como abordar",
+            dados.comoAbordar,
+            "abordar"
+        )}
+
+
+        ${criarCard(
+            "◉",
+            "O que observar na resposta",
+            dados.oQueObservar,
+            "observar"
+        )}
+
+
+        ${criarCard(
+            "→",
+            "Próximo passo",
+            dados.proximoPasso,
+            "proximo"
+        )}
+
+
+        <div class="indice-explicacao">
 
             <div class="titulo-card">
 
-                <span>
-                    💡
-                </span>
+                <div class="icone-card">
+                    %
+                </div>
 
-                Como agir
+                <div>
+
+                    <span>
+                        ÍNDICE
+                    </span>
+
+                    <h3>
+                        Como interpretar
+                    </h3>
+
+                </div>
 
             </div>
 
             <p>
-
                 ${escaparHTML(
-                    dados.comoAgir ||
-                    "Considere o contexto completo e converse diretamente antes de tirar conclusões."
+                    dados.explicacaoIndice ||
+                    "O índice representa a intensidade dos pontos que merecem atenção no material analisado."
                 )}
-
             </p>
 
         </div>
@@ -1085,10 +993,9 @@ function mostrarResultado(texto) {
             </strong>
 
             <span>
-                O índice representa sinais identificados
-                na conversa e não é uma prova de traição.
-                Considere o contexto e converse diretamente
-                antes de tirar conclusões.
+                O índice não é uma prova de infidelidade.
+                Ele representa apenas os pontos que merecem
+                atenção dentro dos prints analisados.
             </span>
 
         </div>
@@ -1098,7 +1005,148 @@ function mostrarResultado(texto) {
 
 
 // ======================================================
-// PROCESSAR RESPOSTA DA IA
+// CRIAR CARD DE TEXTO
+// ======================================================
+
+function criarCard(
+    icone,
+    titulo,
+    texto,
+    classe = ""
+) {
+
+    if (!texto) {
+        texto =
+            "Não foi possível determinar isso a partir dos prints.";
+    }
+
+
+    return `
+
+        <div class="analise-card ${classe}">
+
+            <div class="titulo-card">
+
+                <div class="icone-card">
+                    ${icone}
+                </div>
+
+                <div>
+
+                    <span>
+                        CORNÔMETRO
+                    </span>
+
+                    <h3>
+                        ${escaparHTML(titulo)}
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <div class="texto-card">
+
+                ${formatarTexto(texto)}
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+// ======================================================
+// CRIAR CARD DE LISTA
+// ======================================================
+
+function criarCardLista(
+    icone,
+    titulo,
+    lista,
+    classe = ""
+) {
+
+    if (!lista || !lista.length) {
+
+        return "";
+    }
+
+
+    return `
+
+        <div class="analise-card ${classe}">
+
+            <div class="titulo-card">
+
+                <div class="icone-card">
+                    ${icone}
+                </div>
+
+                <div>
+
+                    <span>
+                        CORNÔMETRO
+                    </span>
+
+                    <h3>
+                        ${escaparHTML(titulo)}
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <div class="lista-analise">
+
+                ${lista
+                    .map(
+                        item => `
+
+                            <div class="item-analise">
+
+                                <span class="item-ponto">
+                                    •
+                                </span>
+
+                                <p>
+                                    ${escaparHTML(item)}
+                                </p>
+
+                            </div>
+                        `
+                    )
+                    .join("")
+                }
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+// ======================================================
+// FORMATAR TEXTO
+// ======================================================
+
+function formatarTexto(texto) {
+
+    return escaparHTML(texto)
+        .split("\n")
+        .filter(linha => linha.trim())
+        .map(
+            linha =>
+                `<p>${linha}</p>`
+        )
+        .join("");
+}
+
+
+// ======================================================
+// PROCESSAR RESPOSTA
 // ======================================================
 
 function processarResposta(texto) {
@@ -1106,110 +1154,116 @@ function processarResposta(texto) {
     const resultado = {
 
         resumo: "",
-
-        indice: "—",
-
-        sinais: [],
-
         contexto: "",
-
+        fatos: [],
+        pontosAtencao: [],
+        oQuePodeEstarAcontecendo: "",
+        contradicoes: [],
+        padroes: "",
         perguntas: [],
-
-        comoAgir: ""
-
+        comoAbordar: "",
+        oQueObservar: "",
+        proximoPasso: "",
+        indice: "—",
+        explicacaoIndice: "",
+        limitacoes: ""
     };
 
 
     const textoLimpo =
-        String(
-            texto || ""
-        )
-        .replace(/\r/g, "")
-        .trim();
+        String(texto || "")
+            .replace(/\r/g, "")
+            .trim();
 
 
-    // ==================================================
-    // RESUMO
-    // ==================================================
-
-    const resumo =
+    resultado.resumo =
         extrairSecao(
             textoLimpo,
             "RESUMO:",
-            "INDICE:"
+            "CONTEXTO:"
+        ).trim();
+
+
+    resultado.contexto =
+        extrairSecao(
+            textoLimpo,
+            "CONTEXTO:",
+            "FATOS OBSERVADOS:"
+        ).trim();
+
+
+    resultado.fatos =
+        transformarLista(
+            extrairSecao(
+                textoLimpo,
+                "FATOS OBSERVADOS:",
+                "PONTOS DE ATENÇÃO:"
+            )
         );
 
 
-    // ==================================================
-    // ÍNDICE
-    // ==================================================
+    resultado.pontosAtencao =
+        transformarLista(
+            extrairSecao(
+                textoLimpo,
+                "PONTOS DE ATENÇÃO:",
+                "O QUE PODE ESTAR ACONTECENDO:"
+            )
+        );
+
+
+    resultado.oQuePodeEstarAcontecendo =
+        extrairSecao(
+            textoLimpo,
+            "O QUE PODE ESTAR ACONTECENDO:",
+            "PERGUNTAS PARA FAZER:"
+        ).trim();
+
+
+    resultado.perguntas =
+        transformarLista(
+            extrairSecao(
+                textoLimpo,
+                "PERGUNTAS PARA FAZER:",
+                "COMO ABORDAR:"
+            )
+        );
+
+
+    resultado.comoAbordar =
+        extrairSecao(
+            textoLimpo,
+            "COMO ABORDAR:",
+            "O QUE OBSERVAR NA RESPOSTA:"
+        ).trim();
+
+
+    resultado.oQueObservar =
+        extrairSecao(
+            textoLimpo,
+            "O QUE OBSERVAR NA RESPOSTA:",
+            "PRÓXIMO PASSO:"
+        ).trim();
+
+
+    resultado.proximoPasso =
+        extrairSecao(
+            textoLimpo,
+            "PRÓXIMO PASSO:",
+            "INDICE:"
+        ).trim();
+
 
     const indice =
         extrairSecao(
             textoLimpo,
             "INDICE:",
-            "SINAIS:"
+            "LIMITAÇÕES:"
         );
 
-
-    // ==================================================
-    // SINAIS
-    // ==================================================
-
-    const sinais =
-        extrairSecao(
-            textoLimpo,
-            "SINAIS:",
-            "CONTEXTO:"
-        );
-
-
-    // ==================================================
-    // CONTEXTO
-    // ==================================================
-
-    const contexto =
-        extrairSecao(
-            textoLimpo,
-            "CONTEXTO:",
-            "PERGUNTAS:"
-        );
-
-
-    // ==================================================
-    // PERGUNTAS
-    // ==================================================
-
-    const perguntas =
-        extrairSecao(
-            textoLimpo,
-            "PERGUNTAS:",
-            "COMO AGIR:"
-        );
-
-
-    // ==================================================
-    // COMO AGIR
-    // ==================================================
-
-    const comoAgir =
-        textoLimpo.split(
-            "COMO AGIR:"
-        )[1] || "";
-
-
-    resultado.resumo =
-        resumo.trim();
-
-
-    // ==================================================
-    // EXTRAIR NÚMERO
-    // ==================================================
 
     const numero =
-        indice.match(
-            /\d+/
-        );
+        indice.match(/\d+/);
 
 
     if (numero) {
@@ -1225,89 +1279,122 @@ function processarResposta(texto) {
                     )
                 )
             );
-
     }
 
 
-    // ==================================================
-    // SINAIS
-    // ==================================================
+    resultado.explicacaoIndice =
+        extrairSecao(
+            textoLimpo,
+            "EXPLICAÇÃO DO INDICE:",
+            "PERGUNTAS PARA ESCLARECER:"
+        ).trim();
 
-    resultado.sinais =
-        sinais
-            .split("\n")
-            .map(
-                linha =>
-                    linha
-                        .replace(
-                            /^\s*[-•*]\s*/,
-                            ""
-                        )
-                        .replace(
-                            /^\s*\d+[.)]\s*/,
-                            ""
-                        )
-                        .trim()
+
+    resultado.contradicoes =
+        transformarLista(
+            extrairSecao(
+                textoLimpo,
+                "CONTRADIÇÕES:",
+                "PADRÕES DE COMUNICAÇÃO:"
             )
-            .filter(Boolean);
+        );
 
 
-    // ==================================================
-    // CONTEXTO
-    // ==================================================
-
-    resultado.contexto =
-        contexto.trim();
-
-
-    // ==================================================
-    // PERGUNTAS
-    // ==================================================
-
-    resultado.perguntas =
-        perguntas
-            .split("\n")
-            .map(
-                linha =>
-                    linha
-                        .replace(
-                            /^\s*[-•*]\s*/,
-                            ""
-                        )
-                        .replace(
-                            /^\s*\d+[.)]\s*/,
-                            ""
-                        )
-                        .trim()
-            )
-            .filter(Boolean);
+    resultado.padroes =
+        extrairSecao(
+            textoLimpo,
+            "PADRÕES DE COMUNICAÇÃO:",
+            "INTERPRETAÇÕES POSSÍVEIS:"
+        ).trim();
 
 
-    // ==================================================
-    // COMO AGIR
-    // ==================================================
+    const perguntasAlternativas =
+        extrairSecao(
+            textoLimpo,
+            "PERGUNTAS:",
+            "COMO AGIR:"
+        );
 
-    resultado.comoAgir =
-        comoAgir.trim();
+
+    if (
+        !resultado.perguntas.length &&
+        perguntasAlternativas
+    ) {
+
+        resultado.perguntas =
+            transformarLista(
+                perguntasAlternativas
+            );
+    }
 
 
-    // ==================================================
-    // FALLBACK
-    // ==================================================
+    const comoAgir =
+        extrairSecao(
+            textoLimpo,
+            "COMO AGIR:",
+            "LIMITAÇÕES:"
+        );
+
+
+    if (
+        !resultado.comoAbordar &&
+        comoAgir
+    ) {
+
+        resultado.comoAbordar =
+            comoAgir.trim();
+    }
+
+
+    resultado.limitacoes =
+        extrairSecao(
+            textoLimpo,
+            "LIMITAÇÕES:",
+            "FIM:"
+        ).trim();
+
 
     if (
         !resultado.resumo &&
-        !resultado.contexto &&
-        !resultado.comoAgir
+        !resultado.contexto
     ) {
 
         resultado.resumo =
             textoLimpo;
-
     }
 
 
     return resultado;
+}
+
+
+// ======================================================
+// TRANSFORMAR LISTA
+// ======================================================
+
+function transformarLista(texto) {
+
+    if (!texto) {
+        return [];
+    }
+
+
+    return texto
+        .split("\n")
+        .map(
+            linha =>
+                linha
+                    .replace(
+                        /^\s*[-•*]\s*/,
+                        ""
+                    )
+                    .replace(
+                        /^\s*\d+[.)]\s*/,
+                        ""
+                    )
+                    .trim()
+        )
+        .filter(Boolean);
 }
 
 
@@ -1324,10 +1411,8 @@ function extrairSecao(
     const textoMaiusculo =
         texto.toUpperCase();
 
-
     const inicioMaiusculo =
         inicio.toUpperCase();
-
 
     const fimMaiusculo =
         fim.toUpperCase();
@@ -1344,7 +1429,6 @@ function extrairSecao(
     ) {
 
         return "";
-
     }
 
 
@@ -1367,7 +1451,6 @@ function extrairSecao(
         return texto.substring(
             inicioConteudo
         );
-
     }
 
 
@@ -1386,8 +1469,20 @@ async function copiarTexto(
     elemento
 ) {
 
+    const container =
+        elemento.closest(
+            ".pergunta-balao"
+        );
+
+
     const texto =
-        elemento.textContent.trim();
+        container
+            ?.querySelector("p")
+            ?.textContent
+            ?.trim();
+
+
+    if (!texto) return;
 
 
     try {
@@ -1402,7 +1497,12 @@ async function copiarTexto(
 
 
         elemento.textContent =
-            "✓ Copiado!";
+            "✓ Copiado";
+
+
+        elemento.classList.add(
+            "copiado"
+        );
 
 
         setTimeout(
@@ -1411,8 +1511,12 @@ async function copiarTexto(
                 elemento.textContent =
                     original;
 
+                elemento.classList.remove(
+                    "copiado"
+                );
+
             },
-            1200
+            1400
         );
 
 
@@ -1422,7 +1526,6 @@ async function copiarTexto(
             "Não foi possível copiar.",
             erro
         );
-
     }
 }
 
@@ -1433,31 +1536,66 @@ async function copiarTexto(
 
 function analisarNovamente() {
 
-    resultado.innerHTML = `
+    if (
+        arquivosSelecionados.length === 0
+    ) {
 
-        <div class="resultado-vazio">
+        resultado.innerHTML = `
+            <div class="resultado-vazio">
 
-            <div class="resultado-vazio-icon">
-                ✦
+                <div class="resultado-vazio-icon">
+                    ✦
+                </div>
+
+                <h3>
+                    Pronto para analisar
+                </h3>
+
+                <p>
+                    Envie até 3 prints da conversa
+                    para começar.
+                </p>
+
             </div>
+        `;
+
+        return;
+    }
+
+
+    resultado.innerHTML = `
+        <div class="carregando">
+
+            <div class="loader"></div>
 
             <h3>
-                Pronto para analisar
+                Preparando nova análise...
             </h3>
 
             <p>
-                Envie até 3 prints da conversa
-                para começar.
+                O CORNÔMETRO vai tentar analisar
+                os prints novamente.
             </p>
 
         </div>
-
     `;
 
-    window.scrollTo({
-        top: resultado.offsetTop - 100,
-        behavior: "smooth"
-    });
+
+    btnAnalisar.click();
+
+
+    setTimeout(
+        () => {
+
+            window.scrollTo({
+                top:
+                    resultado.offsetTop - 100,
+                behavior: "smooth"
+            });
+
+        },
+        100
+    );
 }
 
 
@@ -1465,19 +1603,15 @@ function analisarNovamente() {
 // ESCAPAR HTML
 // ======================================================
 
-function escaparHTML(
-    texto
-) {
+function escaparHTML(texto) {
 
     const div =
         document.createElement(
             "div"
         );
 
-
     div.textContent =
         texto || "";
-
 
     return div.innerHTML;
 }
