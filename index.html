@@ -14,6 +14,8 @@
         content="CORNÔMETRO — análise inteligente de conversas com IA."
     >
 
+    <meta name="theme-color" content="#060609">
+
     <title>CORNÔMETRO — Analisador de Conversas</title>
 
     <link
@@ -58,6 +60,7 @@
             <button
                 id="btnComecar"
                 class="btn-comecar"
+                type="button"
             >
                 <span>✦</span>
                 Começar análise
@@ -72,7 +75,10 @@
          FUNDO
     ================================================== -->
 
-    <div class="background">
+    <div
+        class="background"
+        aria-hidden="true"
+    >
 
         <div class="glow glow-1"></div>
         <div class="glow glow-2"></div>
@@ -92,6 +98,7 @@
             <a
                 href="#"
                 class="logo"
+                aria-label="CORNÔMETRO"
             >
 
                 <div class="logo-icon">
@@ -143,8 +150,11 @@
         <section class="hero">
 
             <div class="badge">
+
                 <span>✦</span>
-                Inteligência artificial local
+
+                Inteligência artificial
+
             </div>
 
 
@@ -159,14 +169,13 @@
             <p>
 
                 Envie prints da conversa e deixe a IA
-                analisar possíveis sinais de flerte,
-                intimidade, contradições e comportamentos
-                que merecem esclarecimento.
+                analisar padrões, contradições, mudanças
+                de comportamento e pontos que podem
+                merecer esclarecimento.
 
             </p>
 
         </section>
-
 
 
         <!-- ==================================================
@@ -183,7 +192,7 @@
                 <input
                     type="file"
                     id="inputImagens"
-                    accept="image/*"
+                    accept="image/png,image/jpeg,image/webp,image/*"
                     multiple
                     hidden
                 >
@@ -198,6 +207,7 @@
                         stroke-width="1.7"
                         stroke-linecap="round"
                         stroke-linejoin="round"
+                        aria-hidden="true"
                     >
 
                         <path d="M12 16V4" />
@@ -251,32 +261,36 @@
 
 
             <!-- ==================================================
-                 BOTÃO
+                 BOTÃO ANALISAR
             ================================================== -->
 
             <button
                 id="btnAnalisar"
                 class="btn-analisar"
+                type="button"
                 disabled
             >
 
-                <span>
-                    🔍
+                <span class="btn-icon">
+                    ✦
                 </span>
 
-                Analisar conversa
+                <span class="btn-text">
+                    Analisar conversa
+                </span>
 
             </button>
 
 
             <div class="privacidade">
 
-                <span>🔒</span>
+                <span aria-hidden="true">
+                    🔒
+                </span>
 
                 <p>
-                    Seus prints são enviados apenas para a
-                    IA local do seu computador e não precisam
-                    sair para a internet.
+                    Seus prints são enviados com segurança
+                    para o serviço de IA responsável pela análise.
                 </p>
 
             </div>
@@ -286,11 +300,15 @@
 
         <!-- ==================================================
              RESULTADO
+             
+             O JavaScript substitui o conteúdo desta área
+             pela análise visual.
         ================================================== -->
 
         <section
             id="resultado"
             class="resultado"
+            aria-live="polite"
         >
 
             <div class="resultado-vazio">
@@ -326,7 +344,7 @@
                 </span>
 
                 <h2>
-                    Simples, rápido e privado.
+                    Simples, rápido e direto.
                 </h2>
 
             </div>
@@ -371,8 +389,9 @@
                     </h3>
 
                     <p>
-                        O modelo procura padrões,
-                        sinais e possíveis contradições.
+                        O modelo analisa o contexto,
+                        sequência das mensagens e possíveis
+                        pontos que merecem esclarecimento.
                     </p>
 
                 </div>
@@ -393,8 +412,8 @@
                     </h3>
 
                     <p>
-                        Receba perguntas e sugestões
-                        para conversar sobre a situação.
+                        Receba perguntas personalizadas
+                        para conversar sobre cada situação.
                     </p>
 
                 </div>
@@ -417,16 +436,16 @@
             <div>
 
                 <strong>
-                    O CORNÔMETRO não detecta traição.
+                    O CORNÔMETRO não confirma traição.
                 </strong>
 
                 <p>
-                    A ferramenta identifica possíveis sinais
-                    presentes no conteúdo enviado. Um sinal
+                    A ferramenta analisa o conteúdo enviado
+                    e identifica pontos que podem merecer
+                    atenção ou esclarecimento. Um comportamento
                     isolado não confirma infidelidade e pode
-                    ter explicações completamente inocentes.
-                    Use a análise como apoio para uma conversa,
-                    não como prova ou sentença.
+                    possuir diversas explicações. Use a análise
+                    como apoio para uma conversa, não como prova.
                 </p>
 
             </div>
@@ -456,37 +475,50 @@
 
 
         <span>
-            IA local • Privacidade primeiro
+            IA • análise contextual
         </span>
 
     </footer>
 
 
     <!-- ==================================================
-         JAVASCRIPT
+         JAVASCRIPT PRINCIPAL
     ================================================== -->
 
     <script src="script.js"></script>
 
 
+    <!-- ==================================================
+         INTRO
+    ================================================== -->
+
     <script>
 
-        const btnComecar =
-            document.getElementById("btnComecar");
+        document.addEventListener("DOMContentLoaded", () => {
 
-        const introScreen =
-            document.getElementById("introScreen");
+            const btnComecar =
+                document.getElementById("btnComecar");
+
+            const introScreen =
+                document.getElementById("introScreen");
 
 
-        btnComecar.addEventListener("click", function () {
+            if (!btnComecar || !introScreen) {
+                return;
+            }
 
-            introScreen.classList.add("intro-hidden");
 
-            setTimeout(function () {
+            btnComecar.addEventListener("click", () => {
 
-                introScreen.style.display = "none";
+                introScreen.classList.add("intro-hidden");
 
-            }, 700);
+                setTimeout(() => {
+
+                    introScreen.style.display = "none";
+
+                }, 700);
+
+            });
 
         });
 
