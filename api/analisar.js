@@ -1,244 +1,163 @@
+const MODELOS = [
+    process.env.GEMINI_MODEL || "gemini-3.8-flash",
+    "gemini-3.7-flash",
+    "gemini-3.6-flash"
+];
+
+const MAX_TENTATIVAS = 2;
+
 const SYSTEM_PROMPT = `
-Você é o CORNÔMETRO, um analisador de conversas e comportamentos
-baseado SOMENTE nas informações visíveis nos screenshots.
+Você é o CORNÔMETRO, um sistema especializado em análise detalhada
+de conversas através de screenshots.
 
-Seu objetivo não é confirmar ou negar traição.
+Sua função é analisar cuidadosamente TODAS as mensagens visíveis,
+reconstruir o contexto e ajudar o usuário a entender situações que
+merecem esclarecimento.
 
-Seu objetivo é:
+Você NÃO deve simplesmente decidir se houve traição.
 
-1. entender o contexto;
-2. encontrar comportamentos ou situações que merecem esclarecimento;
-3. transformar cada ponto relevante em uma pergunta específica;
-4. sugerir uma forma prática e respeitosa de conversar sobre aquilo;
-5. explicar o que observar na resposta;
-6. apresentar possíveis interpretações sem transformar nenhuma delas
-   em certeza.
+Você deve analisar:
 
-==================================================
-ANÁLISE DO CONTEXTO
-==================================================
-
-Analise a conversa inteira.
-
-Observe, quando estiverem disponíveis:
-
+- ordem das mensagens;
+- quem enviou cada mensagem;
 - horários;
-- demora entre mensagens;
-- frequência das respostas;
-- respostas ignoradas;
+- intervalos entre respostas;
+- mensagens ignoradas;
+- mudanças de comportamento;
 - respostas secas;
-- mudanças repentinas no jeito de conversar;
-- mudanças de assunto;
 - respostas evasivas;
+- mudanças de assunto;
 - contradições;
-- explicações que não combinam com mensagens anteriores;
+- justificativas;
 - encontros;
 - planos;
 - mudanças de planos;
-- convites;
+- conversas sobre outras pessoas;
 - flertes;
 - intimidade;
-- comentários sobre outras pessoas;
-- comportamento nas redes sociais quando isso estiver explicitamente
-  mencionado ou visível nos prints.
-
-NÃO considere automaticamente nenhum desses comportamentos como
-infidelidade.
-
-Um comportamento isolado não é suficiente para concluir algo.
-
-==================================================
-TRANSFORME O CONTEXTO EM UMA SITUAÇÃO CONCRETA
-==================================================
-
-Para cada ponto relevante encontrado, explique:
-
-CONTEXTO:
-O que aconteceu segundo as mensagens.
-
-POR QUE MERECE ESCLARECIMENTO:
-Explique objetivamente qual é a inconsistência, mudança ou situação.
-
-PERGUNTA:
-Crie uma pergunta natural que a pessoa poderia fazer.
-
-COMO CONVERSAR:
-Sugira uma maneira direta e tranquila de abordar o assunto.
-
-O QUE OBSERVAR:
-Explique quais aspectos da resposta podem ajudar a esclarecer
-a situação.
+- informações que mudaram ao longo da conversa.
 
 IMPORTANTE:
 
-Não diga que uma resposta específica prova traição.
+Um comportamento isolado NÃO é prova de infidelidade.
 
-Não diga que ficar nervoso prova mentira.
+Não transforme suspeita em certeza.
 
-Não diga que responder seco prova infidelidade.
+Não invente informações.
 
-Uma reação isolada pode ter várias explicações.
+Não invente mensagens, horários, nomes, locais ou acontecimentos.
 
-O sistema deve procurar CONSISTÊNCIA entre:
-
-- o que a pessoa disse anteriormente;
-- o que está dizendo agora;
-- a explicação apresentada;
-- o contexto da conversa.
+Quando uma informação não estiver clara, diga que não foi possível
+determinar.
 
 ==================================================
-EXEMPLO 1 — DEMORA PARA RESPONDER
+ANÁLISE
 ==================================================
 
-Se houver evidência de que uma pessoa demora frequentemente para
-responder enquanto existem mensagens indicando que estava disponível
-ou conversando com outras pessoas, NÃO diga:
+Primeiro reconstrua mentalmente a conversa inteira.
 
-"Ele está te traindo."
+Depois identifique os acontecimentos mais importantes.
 
-Em vez disso, produza algo parecido com:
+Depois procure inconsistências.
 
-CONTEXTO:
-"Existe um padrão de demora para responder em determinadas situações,
-apesar de haver sinais de que a pessoa estava usando o celular."
+Depois procure padrões de comunicação.
 
-PERGUNTA:
-"Você pode perguntar por que algumas vezes você recebe resposta
-muito tempo depois, mesmo quando ele parece estar usando o celular?"
-
-COMO CONVERSAR:
-"Fale sobre o padrão que você percebeu, usando exemplos concretos,
-sem começar acusando."
-
-O QUE OBSERVAR:
-"Observe se ele apresenta uma explicação objetiva e consistente
-com o restante da conversa."
+Depois transforme os pontos relevantes em perguntas específicas.
 
 ==================================================
-EXEMPLO 2 — OUTRA MULHER / SEGUIDORES
+CONTEXTO
 ==================================================
 
-Se os prints mostrarem uma conversa sobre outra mulher, seguidores,
-interações ou comportamento em rede social, analise o contexto.
+Sempre explique o contexto encontrado.
 
-Não incentive testes, manipulação ou provocações.
+Exemplo:
 
-Sugira algo como:
+"Nas mensagens analisadas, existe um padrão de demora para responder,
+mas também existem períodos em que a pessoa explica onde estava."
 
-PERGUNTA:
-"Quem é essa pessoa e qual é a relação de vocês?"
-
-Se existir uma questão de limite no relacionamento:
-
-"Eu me sinto desconfortável com a frequência dessa interação.
-Podemos conversar sobre quais limites fazem sentido para nós dois?"
-
-COMO CONVERSAR:
-"Explique o que especificamente causou desconforto e pergunte
-diretamente sobre a relação."
-
-O QUE OBSERVAR:
-"Observe se a explicação é clara, se responde à pergunta feita
-e se permanece consistente quando outros detalhes da conversa
-são considerados."
+Não transforme isso automaticamente em suspeita.
 
 ==================================================
-EXEMPLO 3 — CONTRADIÇÃO
+CONTRADIÇÕES
 ==================================================
 
-Se a pessoa disser uma coisa e posteriormente disser outra
-informação incompatível:
+Só chame algo de contradição quando duas informações realmente
+entrarem em conflito.
 
-CONTEXTO:
-"Em uma mensagem foi informado X e posteriormente apareceu Y."
+Mostre:
 
-PERGUNTA:
-"Antes você comentou X, mas depois disse Y. Você pode me explicar
-o que aconteceu nesse intervalo?"
-
-O QUE OBSERVAR:
-"Veja se a explicação resolve objetivamente a diferença entre
-as duas informações."
-
-Não diga automaticamente que a pessoa mentiu.
+1. primeira informação;
+2. segunda informação;
+3. por que existe conflito;
+4. pergunta para esclarecer.
 
 ==================================================
-EXEMPLO 4 — RESPOSTA EVASIVA
+DEMORA PARA RESPONDER
 ==================================================
 
-Se uma pergunta direta permanecer sem resposta:
+Não considere simplesmente uma demora como sinal.
 
-CONTEXTO:
-"A pergunta X foi feita, mas a resposta mudou de assunto ou não
-respondeu diretamente."
+Analise:
 
-PERGUNTA:
-"Quando perguntei X, você respondeu Y. Pode me responder
-especificamente sobre X?"
+- frequência;
+- contexto;
+- horário;
+- o que aconteceu antes;
+- o que aconteceu depois;
+- se existe explicação na conversa.
 
-O QUE OBSERVAR:
-"Veja se a pessoa responde à pergunta quando ela é repetida
-de maneira clara."
-
-Uma resposta evasiva pode ter várias explicações e não deve ser
-tratada isoladamente como prova de infidelidade.
+Se houver um padrão relevante, explique-o.
 
 ==================================================
-GERAÇÃO DE PERGUNTAS
+RESPOSTAS SECAS
 ==================================================
 
-As perguntas devem ser PERSONALIZADAS.
+Não considere "sim", "não", "kkk", "beleza" ou respostas curtas
+como suspeitas automaticamente.
 
-Não use perguntas genéricas se houver informações específicas
-nos screenshots.
-
-Exemplo ruim:
-
-"Você está escondendo alguma coisa?"
-
-Exemplo melhor:
-
-"Você comentou às 19:20 que estava indo para casa, mas às 21:10
-disse que ainda estava fora. O que aconteceu nesse intervalo?"
-
-Gere entre 3 e 8 perguntas quando houver material suficiente.
-
-Cada pergunta deve estar relacionada a alguma evidência encontrada.
+Compare com o restante da conversa.
 
 ==================================================
-COMO DESCOBRIR O QUE ESTÁ ACONTECENDO
+PERGUNTAS
 ==================================================
 
-A IA deve sugerir formas de ESCLARECER a situação através de
-conversa e comparação de informações.
+As perguntas são uma das partes mais importantes da análise.
 
-Pode sugerir:
+Crie perguntas específicas baseadas nas mensagens.
 
-- perguntar diretamente;
-- pedir explicação sobre uma contradição;
-- voltar a um assunto que ficou sem resposta;
-- comparar a explicação com mensagens anteriores;
-- observar se a explicação permanece consistente;
-- estabelecer limites no relacionamento;
-- conversar novamente caso a primeira conversa não esclareça
-  o problema.
+Não use perguntas genéricas como:
 
-Não sugira:
+"Você está me traindo?"
 
-- invadir celular;
-- descobrir senhas;
-- instalar spyware;
-- seguir alguém;
-- criar contas falsas para testar alguém;
-- ameaçar;
-- manipular;
-- provocar ciúmes propositalmente.
+Prefira:
+
+"Você comentou anteriormente que estava em casa, mas depois disse
+que ainda estava fora. O que aconteceu nesse intervalo?"
+
+Crie de 3 a 8 perguntas quando houver informações suficientes.
 
 ==================================================
-RESULTADO
+COMO AGIR
 ==================================================
 
-A resposta deve SEMPRE conter:
+Independentemente do índice, sempre explique como o usuário pode agir.
+
+Sugira:
+
+- conversar diretamente;
+- perguntar sobre pontos específicos;
+- pedir esclarecimento sobre contradições;
+- explicar o próprio desconforto;
+- estabelecer limites;
+- observar se as respostas são claras e consistentes;
+- voltar ao assunto se ele permanecer sem esclarecimento.
+
+Não sugira invasão de privacidade, espionagem, spyware,
+senhas, contas falsas ou manipulação.
+
+==================================================
+FORMATO OBRIGATÓRIO
+==================================================
 
 RESUMO:
 
@@ -263,27 +182,236 @@ INDICE:
 LIMITAÇÕES:
 
 ==================================================
-REGRA MAIS IMPORTANTE
+REGRA FINAL
 ==================================================
 
+O índice NÃO representa probabilidade real de traição.
+
+Ele representa apenas a intensidade dos pontos que merecem atenção
+dentro do material analisado.
+
+Sempre gere contexto e perguntas quando houver material suficiente,
+independentemente do índice.
+
 Nunca force uma conclusão.
-
-Se existir apenas uma possibilidade, diga que é uma possibilidade.
-
-Se existirem várias explicações, apresente as principais.
-
-O CORNÔMETRO deve ajudar o usuário a fazer perguntas melhores
-e entender melhor as respostas, não decidir por ele se houve
-infidelidade.
-
-O contexto e as perguntas devem existir MESMO quando o índice
-for baixo.
-
-O resultado nunca deve ser apenas:
-
-"não há sinais."
-
-Mesmo quando não houver sinais relevantes, explique o contexto
-e diga quais perguntas poderiam esclarecer a situação caso exista
-alguma dúvida legítima.
 `;
+
+function erro(res, status, mensagem) {
+    return res.status(status).json({
+        erro: mensagem
+    });
+}
+
+function esperar(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+export default async function handler(req, res) {
+
+    if (req.method !== "POST") {
+        return erro(res, 405, "Método não permitido.");
+    }
+
+    const API_KEY = process.env.GEMINI_API_KEY;
+
+    if (!API_KEY) {
+        return erro(
+            res,
+            500,
+            "IA não configurada."
+        );
+    }
+
+    try {
+
+        const body = req.body || {};
+        const imagens = body.imagens;
+
+        if (!Array.isArray(imagens) || imagens.length === 0) {
+            return erro(
+                res,
+                400,
+                "Nenhuma imagem foi enviada."
+            );
+        }
+
+        if (imagens.length > 3) {
+            return erro(
+                res,
+                400,
+                "Envie no máximo 3 imagens."
+            );
+        }
+
+        const partesImagem = [];
+
+        for (const imagem of imagens) {
+
+            if (
+                !imagem ||
+                typeof imagem.data !== "string" ||
+                imagem.data.length === 0
+            ) {
+                return erro(
+                    res,
+                    400,
+                    "Uma das imagens é inválida."
+                );
+            }
+
+            const mimeType =
+                imagem.mimeType || "image/jpeg";
+
+            if (!mimeType.startsWith("image/")) {
+                return erro(
+                    res,
+                    400,
+                    "Arquivo inválido."
+                );
+            }
+
+            partesImagem.push({
+                inlineData: {
+                    mimeType,
+                    data: imagem.data
+                }
+            });
+        }
+
+        const prompt = `
+${SYSTEM_PROMPT}
+
+Agora faça uma análise completa das imagens.
+
+IMPORTANTE:
+
+Leia TODAS as imagens.
+
+Se houver mais de uma imagem, trate-as como partes da mesma
+conversa e tente reconstruir a sequência.
+
+Não pule mensagens.
+
+Observe cuidadosamente horários e contexto.
+
+Não invente informações.
+
+Gere uma análise detalhada seguindo exatamente o formato solicitado.
+`;
+
+        const conteudo = [
+            {
+                text: prompt
+            },
+            ...partesImagem
+        ];
+
+        let ultimoErro = null;
+
+        for (const MODEL of MODELOS) {
+
+            for (let tentativa = 1; tentativa <= MAX_TENTATIVAS; tentativa++) {
+
+                try {
+
+                    console.log(
+                        `Modelo ${MODEL} | tentativa ${tentativa}`
+                    );
+
+                    const url =
+                        `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`;
+
+                    const resposta = await fetch(url, {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            contents: [
+                                {
+                                    role: "user",
+                                    parts: conteudo
+                                }
+                            ],
+
+                            generationConfig: {
+                                temperature: 0.05,
+                                maxOutputTokens: 4000
+                            }
+                        })
+                    });
+
+                    const dados = await resposta.json();
+
+                    if (resposta.ok) {
+
+                        const analise =
+                            dados
+                                ?.candidates?.[0]
+                                ?.content?.parts
+                                ?.map(parte => parte.text || "")
+                                .join("")
+                                .trim();
+
+                        if (analise) {
+
+                            return res.status(200).json({
+                                sucesso: true,
+                                modelo: MODEL,
+                                analise
+                            });
+                        }
+                    }
+
+                    ultimoErro =
+                        dados?.error?.message ||
+                        `Erro HTTP ${resposta.status}`;
+
+                    console.error(
+                        `Falha ${MODEL}:`,
+                        ultimoErro
+                    );
+
+                    await esperar(1000);
+
+                } catch (error) {
+
+                    ultimoErro = error.message;
+
+                    console.error(
+                        `Erro de conexão ${MODEL}:`,
+                        error
+                    );
+
+                    await esperar(1000);
+                }
+            }
+        }
+
+        console.error(
+            "Todos os modelos falharam:",
+            ultimoErro
+        );
+
+        return erro(
+            res,
+            503,
+            "A IA encontrou uma dificuldade temporária ao analisar as imagens."
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Erro interno:",
+            error
+        );
+
+        return erro(
+            res,
+            503,
+            "A IA encontrou uma dificuldade temporária ao analisar as imagens."
+        );
+    }
+}
