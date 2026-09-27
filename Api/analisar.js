@@ -52,188 +52,81 @@ Dê uma orientação prática e equilibrada baseada somente no conteúdo
 visível. Incentive uma conversa direta antes de tirar conclusões.
 `;
 
-
-// ======================================================
-// RESPOSTA DE ERRO
-// ======================================================
-
 function erro(res, status, mensagem) {
-
     return res.status(status).json({
         erro: mensagem
     });
-
 }
 
-
-// ======================================================
-// HANDLER
-// ======================================================
-
 export default async function handler(req, res) {
-
-    // --------------------------------------------------
-    // MÉTODO
-    // --------------------------------------------------
-
     if (req.method !== "POST") {
-
-        return erro(
-            res,
-            405,
-            "Método não permitido."
-        );
-
+        return erro(res, 405, "Método não permitido.");
     }
 
-
-    // --------------------------------------------------
-    // API KEY
-    // --------------------------------------------------
-
-    const API_KEY =
-        process.env.GEMINI_API_KEY;
-
+    const API_KEY = process.env.GEMINI_API_KEY;
 
     if (!API_KEY) {
-
-        console.error(
-            "GEMINI_API_KEY não configurada."
-        );
+        console.error("GEMINI_API_KEY não configurada.");
 
         return erro(
             res,
             500,
             "A inteligência artificial ainda não está configurada no servidor."
         );
-
     }
 
-
-    // --------------------------------------------------
-    // RECEBER DADOS
-    // --------------------------------------------------
-
     try {
+        const body = req.body || {};
+        const imagens = body.imagens;
 
-        const body =
-            req.body || {};
-
-
-        const imagens =
-            body.imagens;
-
-
-        if (
-            !Array.isArray(imagens) ||
-            imagens.length === 0
-        ) {
-
-            return erro(
-                res,
-                400,
-                "Nenhuma imagem foi enviada."
-            );
-
+        if (!Array.isArray(imagens) || imagens.length === 0) {
+            return erro(res, 400, "Nenhuma imagem foi enviada.");
         }
 
-
-        // --------------------------------------------------
-        // LIMITE DE IMAGENS
-        // --------------------------------------------------
-
-        if (
-            imagens.length > 3
-        ) {
-
+        if (imagens.length > 3) {
             return erro(
                 res,
                 400,
                 "Você pode enviar no máximo 3 imagens."
             );
-
         }
 
+        const partesImagem = [];
 
-        // --------------------------------------------------
-        // VALIDAR IMAGENS
-        // --------------------------------------------------
-
-        const partesImagem =
-            [];
-
-
-        for (
-            const imagem of imagens
-        ) {
-
-            if (
-                !imagem ||
-                typeof imagem.data !== "string"
-            ) {
-
+        for (const imagem of imagens) {
+            if (!imagem || typeof imagem.data !== "string") {
                 return erro(
                     res,
                     400,
                     "Uma das imagens enviadas é inválida."
                 );
-
             }
 
-
-            if (
-                imagem.data.length === 0
-            ) {
-
+            if (imagem.data.length === 0) {
                 return erro(
                     res,
                     400,
                     "Uma das imagens está vazia."
                 );
-
             }
 
+            const mimeType = imagem.mimeType || "image/jpeg";
 
-            const mimeType =
-                imagem.mimeType ||
-                "image/jpeg";
-
-
-            if (
-                !mimeType.startsWith(
-                    "image/"
-                )
-            ) {
-
+            if (!mimeType.startsWith("image/")) {
                 return erro(
                     res,
                     400,
                     "Foi enviado um arquivo que não é uma imagem."
                 );
-
             }
 
-
             partesImagem.push({
-
                 inlineData: {
-
-                    mimeType:
-                        mimeType,
-
-                    data:
-                        imagem.data
-
+                    mimeType: mimeType,
+                    data: imagem.data
                 }
-
             });
-
         }
-
-
-        // --------------------------------------------------
-        // PROMPT
-        // --------------------------------------------------
 
         const prompt = `
 ${SYSTEM_PROMPT}
@@ -257,173 +150,88 @@ PERGUNTAS:
 COMO AGIR:
 `;
 
-
-        // --------------------------------------------------
-        // CORPO DA REQUISIÇÃO
-        // --------------------------------------------------
-
         const conteudo = [
-
             {
                 text: prompt
             },
-
             ...partesImagem
-
         ];
-
-
-        // --------------------------------------------------
-        // CHAMAR GEMINI
-        // --------------------------------------------------
 
         const url =
             `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`;
 
+        const resposta = await fetch(url, {
+            method: "POST",
 
-        const resposta =
-            await fetch(
-                url,
-                {
+            headers: {
+                "Content-Type": "application/json"
+            },
 
-                    method: "POST",
+            body: JSON.stringify({
+                contents: [
+                    {
+                        role: "user",
+                        parts: conteudo
+                    }
+                ],
 
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body:
-                        JSON.stringify({
-
-                            contents: [
-
-                                {
-                                    role: "user",
-
-                                    parts:
-                                        conteudo
-                                }
-
-                            ],
-
-                            generationConfig: {
-
-                                temperature:
-                                    0.1,
-
-                                maxOutputTokens:
-                                    1200
-
-                            }
-
-                        })
-
+                generationConfig: {
+                    temperature: 0.1,
+                    maxOutputTokens: 1200
                 }
-            );
+            })
+        });
 
+        const dados = await resposta.json();
 
-        // --------------------------------------------------
-        // LER RESPOSTA
-        // --------------------------------------------------
-
-        const dados =
-            await resposta.json();
-
-
-        // --------------------------------------------------
-        // ERRO GEMINI
-        // --------------------------------------------------
-
-        if (
-            !resposta.ok
-        ) {
-
-            console.error(
-                "Erro Gemini:",
-                dados
-            );
-
+        if (!resposta.ok) {
+            console.error("Erro Gemini:", dados);
 
             const mensagem =
                 dados?.error?.message ||
                 "A inteligência artificial não conseguiu processar as imagens.";
-
 
             return erro(
                 res,
                 resposta.status,
                 mensagem
             );
-
         }
-
-
-        // --------------------------------------------------
-        // EXTRAIR TEXTO
-        // --------------------------------------------------
 
         const analise =
             dados
                 ?.candidates?.[0]
                 ?.content
                 ?.parts
-                ?.map(
-                    parte =>
-                        parte.text || ""
-                )
+                ?.map(parte => parte.text || "")
                 .join("")
                 .trim();
 
-
-        if (
-            !analise
-        ) {
-
-            console.error(
-                "Resposta sem texto:",
-                dados
-            );
-
+        if (!analise) {
+            console.error("Resposta sem texto:", dados);
 
             return erro(
                 res,
                 500,
                 "A IA não retornou uma análise."
             );
-
         }
 
-
-        // --------------------------------------------------
-        // RETORNAR PARA O SITE
-        // --------------------------------------------------
-
         return res.status(200).json({
-
-            sucesso:
-                true,
-
-            analise:
-                analise
-
+            sucesso: true,
+            analise: analise
         });
 
-
     } catch (error) {
-
         console.error(
             "Erro interno CORNÔMETRO:",
             error
         );
-
 
         return erro(
             res,
             500,
             "Ocorreu um erro ao processar a análise."
         );
-
     }
-
 }
