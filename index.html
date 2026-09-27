@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="CORNÔMETRO — análise inteligente de conversas com IA."
+    >
+
+    <title>CORNÔMETRO — Analisador de Conversas</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+<body>
+
+    <!-- ==================================================
+         TELA INICIAL
+    ================================================== -->
+
+    <div
+        id="introScreen"
+        class="intro-screen"
+    >
+
+        <img
+            src="inicio.png"
+            alt="CORNÔMETRO"
+            class="intro-image"
+        >
+
+        <div class="intro-overlay"></div>
+
+        <div class="intro-content">
+
+            <div class="intro-logo">
+                C
+            </div>
+
+            <h1>
+                CORNÔMETRO
+            </h1>
+
+            <p>
+                análise inteligente de conversas
+            </p>
+
+            <button
+                id="btnComecar"
+                class="btn-comecar"
+            >
+                <span>✦</span>
+                Começar análise
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         FUNDO
+    ================================================== -->
+
+    <div class="background">
+
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+        <div class="glow glow-3"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         HEADER
+    ================================================== -->
+
+    <header class="header">
+
+        <div class="header-inner">
+
+            <a
+                href="#"
+                class="logo"
+            >
+
+                <div class="logo-icon">
+                    C
+                </div>
+
+                <div class="logo-text">
+
+                    <strong>
+                        CORNÔMETRO
+                    </strong>
+
+                    <span>
+                        análise inteligente
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            <div class="status">
+
+                <span
+                    id="statusIA"
+                    class="status-dot"
+                >
+                    VERIFICANDO IA
+                </span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- ==================================================
+         CONTEÚDO
+    ================================================== -->
+
+    <main class="container">
+
+
+        <!-- ==================================================
+             HERO
+        ================================================== -->
+
+        <section class="hero">
+
+            <div class="badge">
+                <span>✦</span>
+                Inteligência artificial local
+            </div>
+
+
+            <h1>
+
+                Será que tem
+                <span>algo estranho?</span>
+
+            </h1>
+
+
+            <p>
+
+                Envie prints da conversa e deixe a IA
+                analisar possíveis sinais de flerte,
+                intimidade, contradições e comportamentos
+                que merecem esclarecimento.
+
+            </p>
+
+        </section>
+
+
+
+        <!-- ==================================================
+             UPLOAD
+        ================================================== -->
+
+        <section class="upload-card">
+
+            <div
+                id="areaUpload"
+                class="upload-area"
+            >
+
+                <input
+                    type="file"
+                    id="inputImagens"
+                    accept="image/*"
+                    multiple
+                    hidden
+                >
+
+
+                <div class="upload-icon">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.7"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+
+                        <path d="M12 16V4" />
+
+                        <path d="M7 9l5-5 5 5" />
+
+                        <path d="M5 20h14" />
+
+                    </svg>
+
+                </div>
+
+
+                <h2>
+                    Arraste seus prints aqui
+                </h2>
+
+
+                <p>
+                    ou clique para selecionar as imagens
+                </p>
+
+
+                <div class="upload-info">
+
+                    <span>
+                        PNG, JPG ou WEBP
+                    </span>
+
+                    <span class="separator">
+                        •
+                    </span>
+
+                    <strong id="contador">
+                        0/3
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- ==================================================
+                 PREVIEW
+            ================================================== -->
+
+            <div
+                id="preview"
+                class="preview"
+            ></div>
+
+
+            <!-- ==================================================
+                 BOTÃO
+            ================================================== -->
+
+            <button
+                id="btnAnalisar"
+                class="btn-analisar"
+                disabled
+            >
+
+                <span>
+                    🔍
+                </span>
+
+                Analisar conversa
+
+            </button>
+
+
+            <div class="privacidade">
+
+                <span>🔒</span>
+
+                <p>
+                    Seus prints são enviados apenas para a
+                    IA local do seu computador e não precisam
+                    sair para a internet.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             RESULTADO
+        ================================================== -->
+
+        <section
+            id="resultado"
+            class="resultado"
+        >
+
+            <div class="resultado-vazio">
+
+                <div class="resultado-vazio-icon">
+                    ✦
+                </div>
+
+                <h3>
+                    Pronto para analisar
+                </h3>
+
+                <p>
+                    Envie até 3 prints da conversa
+                    para começar a análise.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             COMO FUNCIONA
+        ================================================== -->
+
+        <section class="como-funciona">
+
+            <div class="section-title">
+
+                <span>
+                    COMO FUNCIONA
+                </span>
+
+                <h2>
+                    Simples, rápido e privado.
+                </h2>
+
+            </div>
+
+
+            <div class="passos">
+
+                <div class="passo">
+
+                    <div class="passo-numero">
+                        01
+                    </div>
+
+                    <div class="passo-icon">
+                        ↑
+                    </div>
+
+                    <h3>
+                        Envie os prints
+                    </h3>
+
+                    <p>
+                        Selecione até 3 imagens
+                        da conversa que deseja analisar.
+                    </p>
+
+                </div>
+
+
+                <div class="passo">
+
+                    <div class="passo-numero">
+                        02
+                    </div>
+
+                    <div class="passo-icon">
+                        ✦
+                    </div>
+
+                    <h3>
+                        A IA analisa
+                    </h3>
+
+                    <p>
+                        O modelo procura padrões,
+                        sinais e possíveis contradições.
+                    </p>
+
+                </div>
+
+
+                <div class="passo">
+
+                    <div class="passo-numero">
+                        03
+                    </div>
+
+                    <div class="passo-icon">
+                        ?
+                    </div>
+
+                    <h3>
+                        Você esclarece
+                    </h3>
+
+                    <p>
+                        Receba perguntas e sugestões
+                        para conversar sobre a situação.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             AVISO
+        ================================================== -->
+
+        <section class="disclaimer">
+
+            <div class="disclaimer-icon">
+                !
+            </div>
+
+            <div>
+
+                <strong>
+                    O CORNÔMETRO não detecta traição.
+                </strong>
+
+                <p>
+                    A ferramenta identifica possíveis sinais
+                    presentes no conteúdo enviado. Um sinal
+                    isolado não confirma infidelidade e pode
+                    ter explicações completamente inocentes.
+                    Use a análise como apoio para uma conversa,
+                    não como prova ou sentença.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ==================================================
+         FOOTER
+    ================================================== -->
+
+    <footer class="footer">
+
+        <div>
+
+            <strong>
+                CORNÔMETRO
+            </strong>
+
+            <span>
+                análise inteligente de conversas
+            </span>
+
+        </div>
+
+
+        <span>
+            IA local • Privacidade primeiro
+        </span>
+
+    </footer>
+
+
+    <!-- ==================================================
+         JAVASCRIPT
+    ================================================== -->
+
+    <script src="script.js"></script>
+
+
+    <script>
+
+        const btnComecar =
+            document.getElementById("btnComecar");
+
+        const introScreen =
+            document.getElementById("introScreen");
+
+
+        btnComecar.addEventListener("click", function () {
+
+            introScreen.classList.add("intro-hidden");
+
+            setTimeout(function () {
+
+                introScreen.style.display = "none";
+
+            }, 700);
+
+        });
+
+    </script>
+
+</body>
+
+</html>
