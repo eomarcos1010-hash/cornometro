@@ -2,11 +2,12 @@
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     >
 
     <meta
@@ -14,17 +15,65 @@
         content="CORNÔMETRO — análise inteligente de conversas com IA."
     >
 
-    <meta name="theme-color" content="#060609">
+    <meta
+        name="theme-color"
+        content="#060609"
+    >
 
-    <title>CORNÔMETRO — Analisador de Conversas</title>
+    <!-- PWA -->
+    <meta
+        name="mobile-web-app-capable"
+        content="yes"
+    >
 
+    <meta
+        name="apple-mobile-web-app-capable"
+        content="yes"
+    >
+
+    <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="black-translucent"
+    >
+
+    <meta
+        name="apple-mobile-web-app-title"
+        content="CORNÔMETRO"
+    >
+
+    <!-- ÍCONES -->
+    <link
+        rel="icon"
+        type="image/png"
+        href="inicio.png"
+    >
+
+    <link
+        rel="apple-touch-icon"
+        href="inicio.png"
+    >
+
+    <!-- MANIFEST -->
+    <link
+        rel="manifest"
+        href="manifest.json"
+    >
+
+    <!-- CSS -->
     <link
         rel="stylesheet"
         href="style.css"
     >
+
+    <title>
+        CORNÔMETRO — Analisador de Conversas
+    </title>
+
 </head>
 
+
 <body>
+
 
     <!-- ==================================================
          TELA INICIAL
@@ -43,32 +92,42 @@
 
         <div class="intro-overlay"></div>
 
+
         <div class="intro-content">
 
             <div class="intro-logo">
                 C
             </div>
 
+
             <h1>
                 CORNÔMETRO
             </h1>
 
+
             <p>
                 análise inteligente de conversas
             </p>
+
 
             <button
                 id="btnComecar"
                 class="btn-comecar"
                 type="button"
             >
-                <span>✦</span>
+
+                <span>
+                    ✦
+                </span>
+
                 Começar análise
+
             </button>
 
         </div>
 
     </div>
+
 
 
     <!-- ==================================================
@@ -81,10 +140,13 @@
     >
 
         <div class="glow glow-1"></div>
+
         <div class="glow glow-2"></div>
+
         <div class="glow glow-3"></div>
 
     </div>
+
 
 
     <!-- ==================================================
@@ -95,6 +157,7 @@
 
         <div class="header-inner">
 
+
             <a
                 href="#"
                 class="logo"
@@ -104,6 +167,7 @@
                 <div class="logo-icon">
                     C
                 </div>
+
 
                 <div class="logo-text">
 
@@ -118,6 +182,7 @@
                 </div>
 
             </a>
+
 
 
             <div class="status">
@@ -136,6 +201,7 @@
     </header>
 
 
+
     <!-- ==================================================
          CONTEÚDO
     ================================================== -->
@@ -149,21 +215,28 @@
 
         <section class="hero">
 
+
             <div class="badge">
 
-                <span>✦</span>
+                <span>
+                    ✦
+                </span>
 
                 Inteligência artificial
 
             </div>
 
 
+
             <h1>
 
                 Será que tem
-                <span>algo estranho?</span>
+                <span>
+                    algo estranho?
+                </span>
 
             </h1>
+
 
 
             <p>
@@ -178,16 +251,19 @@
         </section>
 
 
+
         <!-- ==================================================
              UPLOAD
         ================================================== -->
 
         <section class="upload-card">
 
+
             <div
                 id="areaUpload"
                 class="upload-area"
             >
+
 
                 <input
                     type="file"
@@ -196,6 +272,7 @@
                     multiple
                     hidden
                 >
+
 
 
                 <div class="upload-icon">
@@ -221,14 +298,17 @@
                 </div>
 
 
+
                 <h2>
                     Arraste seus prints aqui
                 </h2>
 
 
+
                 <p>
                     ou clique para selecionar as imagens
                 </p>
+
 
 
                 <div class="upload-info">
@@ -237,9 +317,11 @@
                         PNG, JPG ou WEBP
                     </span>
 
+
                     <span class="separator">
                         •
                     </span>
+
 
                     <strong id="contador">
                         0/3
@@ -250,6 +332,7 @@
             </div>
 
 
+
             <!-- ==================================================
                  PREVIEW
             ================================================== -->
@@ -258,6 +341,7 @@
                 id="preview"
                 class="preview"
             ></div>
+
 
 
             <!-- ==================================================
@@ -275,6 +359,7 @@
                     ✦
                 </span>
 
+
                 <span class="btn-text">
                     Analisar conversa
                 </span>
@@ -282,15 +367,23 @@
             </button>
 
 
+
+            <!-- ==================================================
+                 PRIVACIDADE
+            ================================================== -->
+
             <div class="privacidade">
 
                 <span aria-hidden="true">
                     🔒
                 </span>
 
+
                 <p>
+
                     Seus prints são enviados com segurança
                     para o serviço de IA responsável pela análise.
+
                 </p>
 
             </div>
@@ -298,11 +391,9 @@
         </section>
 
 
+
         <!-- ==================================================
              RESULTADO
-             
-             O JavaScript substitui o conteúdo desta área
-             pela análise visual.
         ================================================== -->
 
         <section
@@ -317,18 +408,23 @@
                     ✦
                 </div>
 
+
                 <h3>
                     Pronto para analisar
                 </h3>
 
+
                 <p>
+
                     Envie até 3 prints da conversa
                     para começar a análise.
+
                 </p>
 
             </div>
 
         </section>
+
 
 
         <!-- ==================================================
@@ -337,11 +433,13 @@
 
         <section class="como-funciona">
 
+
             <div class="section-title">
 
                 <span>
                     COMO FUNCIONA
                 </span>
+
 
                 <h2>
                     Simples, rápido e direto.
@@ -350,7 +448,9 @@
             </div>
 
 
+
             <div class="passos">
+
 
                 <div class="passo">
 
@@ -358,20 +458,26 @@
                         01
                     </div>
 
+
                     <div class="passo-icon">
                         ↑
                     </div>
+
 
                     <h3>
                         Envie os prints
                     </h3>
 
+
                     <p>
+
                         Selecione até 3 imagens
                         da conversa que deseja analisar.
+
                     </p>
 
                 </div>
+
 
 
                 <div class="passo">
@@ -380,21 +486,27 @@
                         02
                     </div>
 
+
                     <div class="passo-icon">
                         ✦
                     </div>
+
 
                     <h3>
                         A IA analisa
                     </h3>
 
+
                     <p>
+
                         O modelo analisa o contexto,
                         sequência das mensagens e possíveis
                         pontos que merecem esclarecimento.
+
                     </p>
 
                 </div>
+
 
 
                 <div class="passo">
@@ -403,17 +515,22 @@
                         03
                     </div>
 
+
                     <div class="passo-icon">
                         ?
                     </div>
+
 
                     <h3>
                         Você esclarece
                     </h3>
 
+
                     <p>
+
                         Receba perguntas personalizadas
                         para conversar sobre cada situação.
+
                     </p>
 
                 </div>
@@ -423,15 +540,18 @@
         </section>
 
 
+
         <!-- ==================================================
              AVISO
         ================================================== -->
 
         <section class="disclaimer">
 
+
             <div class="disclaimer-icon">
                 !
             </div>
+
 
             <div>
 
@@ -439,13 +559,16 @@
                     O CORNÔMETRO não confirma traição.
                 </strong>
 
+
                 <p>
+
                     A ferramenta analisa o conteúdo enviado
                     e identifica pontos que podem merecer
                     atenção ou esclarecimento. Um comportamento
                     isolado não confirma infidelidade e pode
                     possuir diversas explicações. Use a análise
                     como apoio para uma conversa, não como prova.
+
                 </p>
 
             </div>
@@ -455,17 +578,20 @@
     </main>
 
 
+
     <!-- ==================================================
          FOOTER
     ================================================== -->
 
     <footer class="footer">
 
+
         <div>
 
             <strong>
                 CORNÔMETRO
             </strong>
+
 
             <span>
                 análise inteligente de conversas
@@ -481,6 +607,7 @@
     </footer>
 
 
+
     <!-- ==================================================
          JAVASCRIPT PRINCIPAL
     ================================================== -->
@@ -488,41 +615,107 @@
     <script src="script.js"></script>
 
 
+
     <!-- ==================================================
-         INTRO
+         INTRO + SERVICE WORKER
     ================================================== -->
 
     <script>
 
-        document.addEventListener("DOMContentLoaded", () => {
+        document.addEventListener(
+            "DOMContentLoaded",
+            () => {
 
-            const btnComecar =
-                document.getElementById("btnComecar");
+                const btnComecar =
+                    document.getElementById(
+                        "btnComecar"
+                    );
 
-            const introScreen =
-                document.getElementById("introScreen");
+                const introScreen =
+                    document.getElementById(
+                        "introScreen"
+                    );
 
 
-            if (!btnComecar || !introScreen) {
-                return;
+                if (
+                    !btnComecar ||
+                    !introScreen
+                ) {
+                    return;
+                }
+
+
+                btnComecar.addEventListener(
+                    "click",
+                    () => {
+
+                        introScreen.classList.add(
+                            "intro-hidden"
+                        );
+
+
+                        setTimeout(
+                            () => {
+
+                                introScreen.style.display =
+                                    "none";
+
+                            },
+                            700
+                        );
+
+                    }
+                );
+
             }
+        );
 
 
-            btnComecar.addEventListener("click", () => {
 
-                introScreen.classList.add("intro-hidden");
+        /* ==================================================
+           REGISTRO DO PWA
+        ================================================== */
 
-                setTimeout(() => {
+        if (
+            "serviceWorker" in navigator
+        ) {
 
-                    introScreen.style.display = "none";
+            window.addEventListener(
+                "load",
+                () => {
 
-                }, 700);
+                    navigator.serviceWorker
+                        .register(
+                            "./service-worker.js"
+                        )
+                        .then(
+                            (registration) => {
 
-            });
+                                console.log(
+                                    "CORNÔMETRO PWA ativo:",
+                                    registration.scope
+                                );
 
-        });
+                            }
+                        )
+                        .catch(
+                            (error) => {
+
+                                console.error(
+                                    "Erro ao registrar o PWA:",
+                                    error
+                                );
+
+                            }
+                        );
+
+                }
+            );
+
+        }
 
     </script>
+
 
 </body>
 
