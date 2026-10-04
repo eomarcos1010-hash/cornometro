@@ -2469,3 +2469,207 @@ body {
         padding: 15px;
     }
 }
+/* =========================================================
+INSTALAÇÃO DO APP
+========================================================= */
+
+.instalar-app {
+width: 100%;
+padding: 25px 18px 10px;
+box-sizing: border-box;
+}
+
+.instalar-conteudo {
+width: 100%;
+max-width: 900px;
+margin: 0 auto;
+padding: 22px;
+border: 1px solid rgba(255,255,255,0.08);
+border-radius: 22px;
+background: linear-gradient(
+145deg,
+rgba(255,255,255,0.055),
+rgba(255,255,255,0.018)
+);
+box-shadow: 0 15px 45px rgba(0,0,0,0.25);
+}
+
+.instalar-topo {
+display: flex;
+align-items: flex-start;
+gap: 15px;
+margin-bottom: 22px;
+}
+
+.instalar-icone {
+width: 52px;
+height: 52px;
+min-width: 52px;
+display: flex;
+align-items: center;
+justify-content: center;
+border-radius: 15px;
+background: rgba(255,255,255,0.07);
+font-size: 26px;
+}
+
+.instalar-tag {
+display: block;
+margin-bottom: 5px;
+font-size: 10px;
+font-weight: 800;
+letter-spacing: 1.5px;
+opacity: 0.55;
+}
+
+.instalar-topo h2 {
+margin: 0 0 6px;
+font-size: clamp(20px, 4vw, 27px);
+line-height: 1.15;
+}
+
+.instalar-topo p {
+margin: 0;
+font-size: 14px;
+line-height: 1.5;
+opacity: 0.65;
+}
+
+.instalar-opcoes {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 15px;
+}
+
+.instalar-card {
+padding: 18px;
+border-radius: 18px;
+background: rgba(0,0,0,0.18);
+border: 1px solid rgba(255,255,255,0.06);
+}
+
+.sistema-icone {
+font-size: 27px;
+margin-bottom: 10px;
+}
+
+.sistema-info h3 {
+margin: 0 0 7px;
+font-size: 19px;
+}
+
+.sistema-info > p {
+margin: 0 0 15px;
+font-size: 13px;
+line-height: 1.5;
+opacity: 0.68;
+}
+
+.passo-instalar {
+display: flex;
+align-items: flex-start;
+gap: 10px;
+margin-top: 10px;
+padding: 10px;
+border-radius: 12px;
+background: rgba(255,255,255,0.035);
+font-size: 12px;
+line-height: 1.4;
+}
+
+.passo-instalar span {
+width: 22px;
+height: 22px;
+min-width: 22px;
+display: flex;
+align-items: center;
+justify-content: center;
+border-radius: 50%;
+background: rgba(255,255,255,0.09);
+font-size: 11px;
+font-weight: 800;
+}
+
+.instalar-final {
+display: flex;
+align-items: center;
+gap: 10px;
+margin-top: 15px;
+padding: 13px 15px;
+border-radius: 13px;
+background: rgba(255,255,255,0.035);
+}
+
+.instalar-final span {
+font-size: 20px;
+}
+
+.instalar-final p {
+margin: 0;
+font-size: 12px;
+line-height: 1.5;
+opacity: 0.65;
+}
+
+.instalar-final strong,
+.passo-instalar strong {
+opacity: 1;
+}
+
+/* CELULAR */
+@media (max-width: 650px) {
+
+```
+.instalar-app {
+    padding: 18px 12px 5px;
+}
+
+.instalar-conteudo {
+    padding: 17px;
+    border-radius: 19px;
+}
+
+.instalar-topo {
+    gap: 11px;
+    margin-bottom: 17px;
+}
+
+.instalar-icone {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    font-size: 22px;
+    border-radius: 13px;
+}
+
+.instalar-topo h2 {
+    font-size: 20px;
+}
+
+.instalar-topo p {
+    font-size: 12px;
+}
+
+.instalar-opcoes {
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+.instalar-card {
+    padding: 15px;
+}
+
+.sistema-info h3 {
+    font-size: 17px;
+}
+
+.passo-instalar {
+    font-size: 12px;
+}
+
+.instalar-final {
+    align-items: flex-start;
+}
+```
+
+}
