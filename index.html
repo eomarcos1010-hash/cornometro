@@ -20,7 +20,6 @@
         content="#060609"
     >
 
-    <!-- PWA -->
     <meta
         name="mobile-web-app-capable"
         content="yes"
@@ -41,7 +40,6 @@
         content="CORNÔMETRO"
     >
 
-    <!-- ÍCONES -->
     <link
         rel="icon"
         type="image/png"
@@ -53,13 +51,11 @@
         href="inicio.png"
     >
 
-    <!-- MANIFEST -->
     <link
         rel="manifest"
         href="manifest.json"
     >
 
-    <!-- CSS -->
     <link
         rel="stylesheet"
         href="style.css"
@@ -75,14 +71,199 @@
 <body>
 
 
-    <!-- ==================================================
-         TELA INICIAL
-    ================================================== -->
+<!-- =========================================================
+     INSTALAR APP
+========================================================= -->
 
-    <div
-        id="introScreen"
-        class="intro-screen"
-    >
+<section class="instalar-app">
+
+    <div class="instalar-conteudo">
+
+        <div class="instalar-topo">
+
+            <span class="instalar-icone">
+                📲
+            </span>
+
+            <div>
+
+                <span class="instalar-tag">
+                    CORNÔMETRO NO CELULAR
+                </span>
+
+                <h2>
+                    Tenha o CORNÔMETRO no seu celular
+                </h2>
+
+                <p>
+                    Instale como um aplicativo e acesse muito mais rápido pela tela inicial.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="instalar-opcoes">
+
+
+            <!-- ANDROID -->
+
+            <div class="instalar-card">
+
+                <div class="sistema-icone">
+                    🤖
+                </div>
+
+                <div class="sistema-info">
+
+                    <h3>
+                        Android
+                    </h3>
+
+                    <p>
+                        Abra o CORNÔMETRO pelo <strong>Google Chrome</strong>,
+                        toque nos <strong>3 pontinhos ⋮</strong> e escolha:
+                    </p>
+
+
+                    <div class="passo-instalar">
+
+                        <span>
+                            1
+                        </span>
+
+                        <div>
+                            Toque nos <strong>3 pontinhos ⋮</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="passo-instalar">
+
+                        <span>
+                            2
+                        </span>
+
+                        <div>
+                            Toque em <strong>“Instalar aplicativo”</strong>
+                            ou <strong>“Adicionar à tela inicial”</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="passo-instalar">
+
+                        <span>
+                            3
+                        </span>
+
+                        <div>
+                            Confirme em <strong>“Instalar”</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- IPHONE -->
+
+            <div class="instalar-card">
+
+                <div class="sistema-icone">
+                    🍎
+                </div>
+
+                <div class="sistema-info">
+
+                    <h3>
+                        iPhone
+                    </h3>
+
+                    <p>
+                        Abra o CORNÔMETRO pelo <strong>Safari</strong>
+                        e siga estes passos:
+                    </p>
+
+
+                    <div class="passo-instalar">
+
+                        <span>
+                            1
+                        </span>
+
+                        <div>
+                            Toque no botão <strong>Compartilhar ↗</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="passo-instalar">
+
+                        <span>
+                            2
+                        </span>
+
+                        <div>
+                            Procure por <strong>“Adicionar à Tela de Início”</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="passo-instalar">
+
+                        <span>
+                            3
+                        </span>
+
+                        <div>
+                            Toque em <strong>“Adicionar”</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="instalar-final">
+
+            <span>
+                ⚡
+            </span>
+
+            <p>
+                Depois de instalado, o <strong>CORNÔMETRO</strong> ficará
+                disponível na tela inicial do seu celular, como um aplicativo.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     TELA DE INTRODUÇÃO
+========================================================= -->
+
+<div
+    id="introScreen"
+    class="intro-screen"
+>
+
+    <div class="intro-bg">
 
         <img
             src="inicio.png"
@@ -92,629 +273,563 @@
 
         <div class="intro-overlay"></div>
 
+    </div>
 
-        <div class="intro-content">
 
-            <div class="intro-logo">
+    <div class="intro-content">
+
+        <div class="intro-logo">
+            C
+        </div>
+
+        <h1>
+            CORNÔMETRO
+        </h1>
+
+        <p>
+            Analisador inteligente de conversas
+        </p>
+
+        <button
+            id="btnComecar"
+            class="btn-comecar"
+            type="button"
+        >
+            Começar análise
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     BACKGROUND
+========================================================= -->
+
+<div class="bg-glow bg-glow-1"></div>
+<div class="bg-glow bg-glow-2"></div>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="top-header">
+
+    <div class="header-inner">
+
+        <div class="brand">
+
+            <div class="logo-mark">
                 C
             </div>
 
-
-            <h1>
-                CORNÔMETRO
-            </h1>
-
-
-            <p>
-                análise inteligente de conversas
-            </p>
-
-
-            <button
-                id="btnComecar"
-                class="btn-comecar"
-                type="button"
-            >
-
-                <span>
-                    ✦
-                </span>
-
-                Começar análise
-
-            </button>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- ==================================================
-         FUNDO
-    ================================================== -->
-
-    <div
-        class="background"
-        aria-hidden="true"
-    >
-
-        <div class="glow glow-1"></div>
-
-        <div class="glow glow-2"></div>
-
-        <div class="glow glow-3"></div>
-
-    </div>
-
-
-
-    <!-- ==================================================
-         HEADER
-    ================================================== -->
-
-    <header class="header">
-
-        <div class="header-inner">
-
-
-            <a
-                href="#"
-                class="logo"
-                aria-label="CORNÔMETRO"
-            >
-
-                <div class="logo-icon">
-                    C
-                </div>
-
-
-                <div class="logo-text">
-
-                    <strong>
-                        CORNÔMETRO
-                    </strong>
-
-                    <span>
-                        análise inteligente
-                    </span>
-
-                </div>
-
-            </a>
-
-
-
-            <div class="status">
-
-                <span
-                    id="statusIA"
-                    class="status-dot"
-                >
-                    VERIFICANDO IA
-                </span>
-
-            </div>
-
-        </div>
-
-    </header>
-
-
-
-    <!-- ==================================================
-         CONTEÚDO
-    ================================================== -->
-
-    <main class="container">
-
-
-        <!-- ==================================================
-             HERO
-        ================================================== -->
-
-        <section class="hero">
-
-
-            <div class="badge">
-
-                <span>
-                    ✦
-                </span>
-
-                Inteligência artificial
-
-            </div>
-
-
-
-            <h1>
-
-                Será que tem
-                <span>
-                    algo estranho?
-                </span>
-
-            </h1>
-
-
-
-            <p>
-
-                Envie prints da conversa e deixe a IA
-                analisar padrões, contradições, mudanças
-                de comportamento e pontos que podem
-                merecer esclarecimento.
-
-            </p>
-
-        </section>
-
-
-
-        <!-- ==================================================
-             UPLOAD
-        ================================================== -->
-
-        <section class="upload-card">
-
-
-            <div
-                id="areaUpload"
-                class="upload-area"
-            >
-
-
-                <input
-                    type="file"
-                    id="inputImagens"
-                    accept="image/png,image/jpeg,image/webp,image/*"
-                    multiple
-                    hidden
-                >
-
-
-
-                <div class="upload-icon">
-
-                    <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.7"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        aria-hidden="true"
-                    >
-
-                        <path d="M12 16V4" />
-
-                        <path d="M7 9l5-5 5 5" />
-
-                        <path d="M5 20h14" />
-
-                    </svg>
-
-                </div>
-
-
-
-                <h2>
-                    Arraste seus prints aqui
-                </h2>
-
-
-
-                <p>
-                    ou clique para selecionar as imagens
-                </p>
-
-
-
-                <div class="upload-info">
-
-                    <span>
-                        PNG, JPG ou WEBP
-                    </span>
-
-
-                    <span class="separator">
-                        •
-                    </span>
-
-
-                    <strong id="contador">
-                        0/3
-                    </strong>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- ==================================================
-                 PREVIEW
-            ================================================== -->
-
-            <div
-                id="preview"
-                class="preview"
-            ></div>
-
-
-
-            <!-- ==================================================
-                 BOTÃO ANALISAR
-            ================================================== -->
-
-            <button
-                id="btnAnalisar"
-                class="btn-analisar"
-                type="button"
-                disabled
-            >
-
-                <span class="btn-icon">
-                    ✦
-                </span>
-
-
-                <span class="btn-text">
-                    Analisar conversa
-                </span>
-
-            </button>
-
-
-
-            <!-- ==================================================
-                 PRIVACIDADE
-            ================================================== -->
-
-            <div class="privacidade">
-
-                <span aria-hidden="true">
-                    🔒
-                </span>
-
-
-                <p>
-
-                    Seus prints são enviados com segurança
-                    para o serviço de IA responsável pela análise.
-
-                </p>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- ==================================================
-             RESULTADO
-        ================================================== -->
-
-        <section
-            id="resultado"
-            class="resultado"
-            aria-live="polite"
-        >
-
-            <div class="resultado-vazio">
-
-                <div class="resultado-vazio-icon">
-                    ✦
-                </div>
-
-
-                <h3>
-                    Pronto para analisar
-                </h3>
-
-
-                <p>
-
-                    Envie até 3 prints da conversa
-                    para começar a análise.
-
-                </p>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- ==================================================
-             COMO FUNCIONA
-        ================================================== -->
-
-        <section class="como-funciona">
-
-
-            <div class="section-title">
-
-                <span>
-                    COMO FUNCIONA
-                </span>
-
-
-                <h2>
-                    Simples, rápido e direto.
-                </h2>
-
-            </div>
-
-
-
-            <div class="passos">
-
-
-                <div class="passo">
-
-                    <div class="passo-numero">
-                        01
-                    </div>
-
-
-                    <div class="passo-icon">
-                        ↑
-                    </div>
-
-
-                    <h3>
-                        Envie os prints
-                    </h3>
-
-
-                    <p>
-
-                        Selecione até 3 imagens
-                        da conversa que deseja analisar.
-
-                    </p>
-
-                </div>
-
-
-
-                <div class="passo">
-
-                    <div class="passo-numero">
-                        02
-                    </div>
-
-
-                    <div class="passo-icon">
-                        ✦
-                    </div>
-
-
-                    <h3>
-                        A IA analisa
-                    </h3>
-
-
-                    <p>
-
-                        O modelo analisa o contexto,
-                        sequência das mensagens e possíveis
-                        pontos que merecem esclarecimento.
-
-                    </p>
-
-                </div>
-
-
-
-                <div class="passo">
-
-                    <div class="passo-numero">
-                        03
-                    </div>
-
-
-                    <div class="passo-icon">
-                        ?
-                    </div>
-
-
-                    <h3>
-                        Você esclarece
-                    </h3>
-
-
-                    <p>
-
-                        Receba perguntas personalizadas
-                        para conversar sobre cada situação.
-
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- ==================================================
-             AVISO
-        ================================================== -->
-
-        <section class="disclaimer">
-
-
-            <div class="disclaimer-icon">
-                !
-            </div>
-
-
-            <div>
+            <div class="logo-text">
 
                 <strong>
-                    O CORNÔMETRO não confirma traição.
+                    CORNÔMETRO
                 </strong>
 
-
-                <p>
-
-                    A ferramenta analisa o conteúdo enviado
-                    e identifica pontos que podem merecer
-                    atenção ou esclarecimento. Um comportamento
-                    isolado não confirma infidelidade e pode
-                    possuir diversas explicações. Use a análise
-                    como apoio para uma conversa, não como prova.
-
-                </p>
+                <span>
+                    Analisador de Conversas
+                </span>
 
             </div>
 
-        </section>
-
-    </main>
+        </div>
 
 
+        <div class="status">
 
-    <!-- ==================================================
-         FOOTER
-    ================================================== -->
+            <span
+                id="statusDot"
+                class="status-dot"
+            ></span>
 
-    <footer class="footer">
-
-
-        <div>
-
-            <strong>
-                CORNÔMETRO
-            </strong>
-
-
-            <span>
-                análise inteligente de conversas
+            <span id="statusText">
+                VERIFICANDO IA
             </span>
 
         </div>
 
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="main-container">
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-badge">
+            🔎 ANÁLISE INTELIGENTE
+        </div>
+
+        <h1>
+            Será que tem
+            <span>algo estranho?</span>
+        </h1>
+
+        <p>
+            Envie prints da conversa e descubra sinais,
+            contradições e comportamentos que podem passar
+            despercebidos.
+        </p>
+
+    </section>
+
+
+
+    <!-- UPLOAD -->
+
+    <section class="upload-card">
+
+        <div class="upload-header">
+
+            <div>
+
+                <span class="section-label">
+                    PASSO 01
+                </span>
+
+                <h2>
+                    Envie a conversa
+                </h2>
+
+                <p>
+                    Adicione até 3 prints da conversa que deseja analisar.
+                </p>
+
+            </div>
+
+
+            <div
+                id="contador"
+                class="contador"
+            >
+                0/3
+            </div>
+
+        </div>
+
+
+        <label
+            for="fileInput"
+            class="upload-area"
+        >
+
+            <div class="upload-icon">
+                ＋
+            </div>
+
+            <h3>
+                Adicionar prints
+            </h3>
+
+            <p>
+                PNG, JPG ou WEBP
+            </p>
+
+            <span class="upload-hint">
+                Toque aqui ou arraste as imagens
+            </span>
+
+        </label>
+
+
+        <input
+            type="file"
+            id="fileInput"
+            accept="image/png,image/jpeg,image/webp"
+            multiple
+            hidden
+        >
+
+
+        <div
+            id="previewContainer"
+            class="preview-container"
+        ></div>
+
+
+        <button
+            id="btnAnalisar"
+            class="btn-analisar"
+            type="button"
+            disabled
+        >
+
+            <span>
+                🔎
+            </span>
+
+            Analisar conversa
+
+        </button>
+
+
+        <div class="privacy-note">
+
+            <span>
+                🔒
+            </span>
+
+            <p>
+                Seus prints são enviados com segurança para o serviço
+                de IA responsável pela análise.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- RESULTADO -->
+
+    <section
+        id="resultado"
+        class="resultado"
+    >
+
+        <div class="resultado-header">
+
+            <span class="section-label">
+                RESULTADO
+            </span>
+
+            <h2>
+                Análise da conversa
+            </h2>
+
+            <p>
+                Veja os principais pontos encontrados na conversa.
+            </p>
+
+        </div>
+
+
+        <div class="resultado-content">
+
+            <!-- RESUMO -->
+
+            <div class="result-card resumo-card">
+
+                <div class="card-label">
+                    RESUMO
+                </div>
+
+                <div
+                    id="resumo"
+                    class="result-text"
+                ></div>
+
+            </div>
+
+
+            <!-- ÍNDICE -->
+
+            <div class="score-card">
+
+                <div class="score-info">
+
+                    <span class="card-label">
+                        ÍNDICE CORNÔMETRO
+                    </span>
+
+                    <strong id="indice">
+                        0
+                    </strong>
+
+                    <small>
+                        /100
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- SINAIS -->
+
+            <div class="result-card">
+
+                <div class="card-label">
+                    SINAIS IDENTIFICADOS
+                </div>
+
+                <div
+                    id="sinais"
+                    class="findings"
+                ></div>
+
+            </div>
+
+
+            <!-- CONTEXTO -->
+
+            <div class="result-card">
+
+                <div class="card-label">
+                    CONTEXTO
+                </div>
+
+                <div
+                    id="contexto"
+                    class="result-text"
+                ></div>
+
+            </div>
+
+
+            <!-- PERGUNTAS -->
+
+            <div class="result-card">
+
+                <div class="card-label">
+                    PERGUNTAS PARA ESCLARECER
+                </div>
+
+                <div
+                    id="perguntas"
+                    class="questions"
+                ></div>
+
+            </div>
+
+
+            <!-- COMO AGIR -->
+
+            <div class="result-card orientacao-card">
+
+                <div class="card-label">
+                    COMO AGIR
+                </div>
+
+                <div
+                    id="comoAgir"
+                    class="result-text"
+                ></div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- COMO FUNCIONA -->
+
+    <section class="como-funciona">
+
+        <div class="section-heading">
+
+            <span class="section-label">
+                COMO FUNCIONA
+            </span>
+
+            <h2>
+                Sem complicação.
+            </h2>
+
+            <p>
+                Você envia os prints e o CORNÔMETRO organiza
+                os principais pontos da conversa.
+            </p>
+
+        </div>
+
+
+        <div class="steps">
+
+            <div class="step">
+
+                <span>
+                    01
+                </span>
+
+                <div>
+                    <h3>
+                        Envie
+                    </h3>
+
+                    <p>
+                        Selecione até 3 prints da conversa.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <span>
+                    02
+                </span>
+
+                <div>
+                    <h3>
+                        Analise
+                    </h3>
+
+                    <p>
+                        A análise interpreta o contexto e os padrões
+                        presentes nos prints.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <span>
+                    03
+                </span>
+
+                <div>
+                    <h3>
+                        Entenda
+                    </h3>
+
+                    <p>
+                        Veja sinais, perguntas para esclarecer
+                        e sugestões de como agir.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- DISCLAIMER -->
+
+    <section class="disclaimer">
 
         <span>
-            IA • análise contextual
+            ⚠️
         </span>
 
-    </footer>
+        <p>
+            O CORNÔMETRO não detecta traição e não pode afirmar
+            com certeza o que outra pessoa está pensando ou fazendo.
+            A análise serve como apoio para observar sinais,
+            contradições e comportamentos na conversa.
+        </p>
+
+    </section>
+
+
+</main>
 
 
 
-    <!-- ==================================================
-         JAVASCRIPT PRINCIPAL
-    ================================================== -->
+<!-- =========================================================
+     FOOTER
+========================================================= -->
 
-    <script src="script.js"></script>
+<footer class="footer">
 
+    <div class="footer-logo">
+        CORNÔMETRO
+    </div>
 
+    <p>
+        Análise inteligente de conversas.
+    </p>
 
-    <!-- ==================================================
-         INTRO + SERVICE WORKER
-    ================================================== -->
+    <span>
+        © 2026 CORNÔMETRO
+    </span>
 
-    <script>
-
-        document.addEventListener(
-            "DOMContentLoaded",
-            () => {
-
-                const btnComecar =
-                    document.getElementById(
-                        "btnComecar"
-                    );
-
-                const introScreen =
-                    document.getElementById(
-                        "introScreen"
-                    );
-
-
-                if (
-                    !btnComecar ||
-                    !introScreen
-                ) {
-                    return;
-                }
-
-
-                btnComecar.addEventListener(
-                    "click",
-                    () => {
-
-                        introScreen.classList.add(
-                            "intro-hidden"
-                        );
-
-
-                        setTimeout(
-                            () => {
-
-                                introScreen.style.display =
-                                    "none";
-
-                            },
-                            700
-                        );
-
-                    }
-                );
-
-            }
-        );
+</footer>
 
 
 
-        /* ==================================================
-           REGISTRO DO PWA
-        ================================================== */
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
 
-        if (
-            "serviceWorker" in navigator
-        ) {
+<script src="script.js"></script>
 
-            window.addEventListener(
-                "load",
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        const btnComecar =
+            document.getElementById("btnComecar");
+
+        const introScreen =
+            document.getElementById("introScreen");
+
+
+        if (btnComecar && introScreen) {
+
+            btnComecar.addEventListener(
+                "click",
                 () => {
 
-                    navigator.serviceWorker
-                        .register(
-                            "./service-worker.js"
-                        )
-                        .then(
-                            (registration) => {
+                    introScreen.classList.add("hidden");
 
-                                console.log(
-                                    "CORNÔMETRO PWA ativo:",
-                                    registration.scope
-                                );
+                    setTimeout(
+                        () => {
 
-                            }
-                        )
-                        .catch(
-                            (error) => {
+                            introScreen.style.display = "none";
 
-                                console.error(
-                                    "Erro ao registrar o PWA:",
-                                    error
-                                );
-
-                            }
-                        );
+                        },
+                        700
+                    );
 
                 }
             );
 
         }
 
-    </script>
+    }
+);
+
+
+if ("serviceWorker" in navigator) {
+
+    window.addEventListener(
+        "load",
+        () => {
+
+            navigator.serviceWorker
+                .register("./service-worker.js")
+                .catch(
+                    (error) => {
+
+                        console.error(
+                            "Erro ao registrar Service Worker:",
+                            error
+                        );
+
+                    }
+                );
+
+        }
+    );
+
+}
+
+</script>
 
 
 </body>
